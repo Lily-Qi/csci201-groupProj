@@ -40,7 +40,7 @@ body {
     padding: 10px;
     font-style: normal;
 	font-weight: 700;
-	font-size: 26px;
+	font-size: 24px;
 	display: block;
 	align-items: center;
 	text-align: center;
@@ -91,4 +91,102 @@ body {
 #user #email {
 	font-size: 15px;
 	font-weight: 300
+}
+
+.division {
+	height:50%;
+	padding-left:16px;
+}
+
+.top {
+	top: 0;
+	border-bottom: 2px solid #1C658C;
+	padding-bottom: 16px;
+	
+}
+.bottom {
+	bottom: 0;
+	padding-top: 16px;
+}
+
+.division .title {
+	font-weight: 700;
+font-size: 30px;
+line-height: 58px;
+color: #5584AC;
+}
+
+.top button {
+	color: white;
+	background: #D8D2CB;
+	border-radius: 10px;
+	width: 240px;
+	height: 160px;
+	cursor: pointer;
+	border: none;
+	text-align: center;
+	font-size: 48px;
+}
+
+.bottom button {
+	color: white;
+	background: #398AB9;
+	border-radius: 10px;
+	width: 240px;
+	height: 160px;
+	cursor: pointer;
+	border: none;
+	text-align: center;
+	font-size: 30px;
+	margin:5px;
+}
+
+#emptyMessage {
+	font-weight: 700;
+font-size: 27px;
+color: #D8D2CB;
+}
+
+.top .accountButton {
+	height: 40px;
+	width: 400px;
+	color: white;
+	background: #398AB9;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.bottom .accountButton {
+	height: 40px;
+	width: 400px;
+	color: white;
+	background: #398AB9;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 5px;
+	margin:0px;
+}
+
+.info {
+	font-weight: 600;
+font-size: 18px;
+color: #1C658C;
+}
+
+.userInput {
+	border: 1px solid #398AB9;
+	border-radius: 4px;
+	width: 400px;
+	height: 35px;
+}
+
+.top .col {
+	padding: 20px;
+}
+
+.bottom .col {
+	padding: 20px;
 }
