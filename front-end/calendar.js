@@ -15,7 +15,7 @@ function origin(){
     NCyear = date.getFullYear();
     curr_day = date.getDate();
     num_of_days = getNumOfDays();
-    reloadCal();
+    //reloadCal();
 }
 
 function getNumOfDays() {
@@ -44,43 +44,104 @@ function reloadCal(){
     var tmp = 1;
     var body = $("<tbody></tbody>");
     body.attr('id', 'table_body');
-    for(let i = 0; i < 5; i++){
+    //first day calc
+    var new_Date = new Date(months[curr_month] + " 1, " + curr_year);
+    var newDay = new_Date.getDay();
+    var start = newDay;
+    for(let i = 0; i < 7; i++){
         //make tr
         var week = $("<tr></tr>");
-        for(let j = 0; j < 7; j++){
-            if(tmp <= num_of_days){
-                //make td
-                var tmpday = tmp;
-                var tmpmnth = (curr_month+1);
-                if(tmpday <= 9){
-                    tmpday = "0" + tmpday;
-                }
-                if(tmpmnth <= 9){
-                    tmpmnth = "0" + tmpmnth;
-                }
-                var datestr = curr_year  + "-" + tmpmnth + "-" + tmpday;
+        if(i == 0){
+            for(let k = 0; k < start; k++){
+                //make blank td
                 var day = $("<td></td>");
                 var div1 = $("<div></div>");
                 var div2 = $("<div></div>");
-                div1.addClass("day-field-wrapper");
-                div2.addClass("events-wrapper");
+                div1.addClass("blank-day-field-wrapper");
+                div2.addClass("blank-events-wrapper");
                 var spn1 = $("<span></span>");
                 var spn2 = $("<span></span>");
-                spn1.addClass("day-field");
-                spn2.addClass("event");
-                spn2.attr("id",datestr);
-                if(curr_month == NCmonth && curr_year == NCyear){
-                    if(tmp == curr_day){
-                        spn1.addClass("today");
-                    }
-                }
-                spn1.text(tmp.toString());
+                spn1.addClass("blank-day-field");
+                spn2.addClass("blank-event");
                 div1.append(spn1);
                 div2.append(spn2);
                 day.append(div1);
                 day.append(div2);
                 week.append(day);
-                tmp += 1;
+            }
+            for(let j = start; j < 7; j++){
+                if(tmp <= num_of_days){
+                    //make td
+                    var tmpday = tmp;
+                    var tmpmnth = (curr_month+1);
+                    if(tmpday <= 9){
+                        tmpday = "0" + tmpday;
+                    }
+                    if(tmpmnth <= 9){
+                        tmpmnth = "0" + tmpmnth;
+                    }
+                    var datestr = curr_year  + "-" + tmpmnth + "-" + tmpday;
+                    var day = $("<td></td>");
+                    var div1 = $("<div></div>");
+                    var div2 = $("<div></div>");
+                    div1.addClass("day-field-wrapper");
+                    div2.addClass("events-wrapper");
+                    var spn1 = $("<span></span>");
+                    var spn2 = $("<span></span>");
+                    spn1.addClass("day-field");
+                    spn2.addClass("event");
+                    spn2.attr("id",datestr);
+                    if(curr_month == NCmonth && curr_year == NCyear){
+                        if(tmp == curr_day){
+                            spn1.addClass("today");
+                        }
+                    }
+                    spn1.text(tmp.toString());
+                    div1.append(spn1);
+                    div2.append(spn2);
+                    day.append(div1);
+                    day.append(div2);
+                    week.append(day);
+                    tmp += 1;
+                }
+            }
+        }
+        else {
+            for(let j = 0; j < 7; j++){
+                if(tmp <= num_of_days){
+                    //make td
+                    var tmpday = tmp;
+                    var tmpmnth = (curr_month+1);
+                    if(tmpday <= 9){
+                        tmpday = "0" + tmpday;
+                    }
+                    if(tmpmnth <= 9){
+                        tmpmnth = "0" + tmpmnth;
+                    }
+                    var datestr = curr_year  + "-" + tmpmnth + "-" + tmpday;
+                    var day = $("<td></td>");
+                    var div1 = $("<div></div>");
+                    var div2 = $("<div></div>");
+                    div1.addClass("day-field-wrapper");
+                    div2.addClass("events-wrapper");
+                    var spn1 = $("<span></span>");
+                    var spn2 = $("<span></span>");
+                    spn1.addClass("day-field");
+                    spn2.addClass("event");
+                    spn2.attr("id",datestr);
+                    if(curr_month == NCmonth && curr_year == NCyear){
+                        if(tmp == curr_day){
+                            spn1.addClass("today");
+                        }
+                    }
+                    spn1.text(tmp.toString());
+                    div1.append(spn1);
+                    div2.append(spn2);
+                    day.append(div1);
+                    day.append(div2);
+                    week.append(day);
+                    tmp += 1;
+                }
             }
         }
         body.append(week);
