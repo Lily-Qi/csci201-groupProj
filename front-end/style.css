@@ -1,0 +1,77 @@
+@font-face {
+  font-family: Lemon Milk;
+  src: url(fonts/LEMONMILK.otf);
+}
+body {
+  background-color: #ffffff !important;
+  margin: 0;
+  padding: 0;
+}
+#Top-Text {
+  font-size: 13px;
+  font-family: Lemon Milk;
+  color: white;
+  border: 2px;
+  border-style: solid;
+  border-color: #3C81A6;
+  padding: 1px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3%;
+  width: 600px;
+  background-color: #3C81A6;
+}
+#todo {
+  color: white;
+  background-color: #3C81A6;
+  text-align: left;
+  padding: 3%;
+}
+#plus {
+  margin-left: 250px;
+  font-size: 40px;
+}
+.container-fluid {
+  box-shadow: 0px 4px 10px #3C81A6;
+  font-family: Lemon Milk;
+  border: 2px;
+  border-style: solid;
+  border-color: #3C81A6;
+  margin-bottom: 3%;
+  text-align: center;
+  max-width: 600px;
+  background-color: #3C81A6;
+  color: #ffffff;
+}
+.spacing {
+  height: 100%;
+}
+#add-id {
+  height: 40px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0;
+}
+ul.items {
+  list-style: none;
+  padding: 0;
+  list-style-position: inside;
+}
+
+ul.items li {
+  text-align: justify;
+  padding: 0.7em 1em;
+  border-bottom: 3px solid #ffffff;
+  width: 600px;
+  font-family: Lemon Milk;
+}
+
+ul li:hover {
+  background-color: #3C81A6;
+}
+
+ul.items li:last-child {
+  border-bottom: 0;
+}
