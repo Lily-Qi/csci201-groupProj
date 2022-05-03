@@ -1,0 +1,45 @@
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+}
+.month{
+    border: 1px solid;
+}
+table, th, td {
+    border: 1px solid;
+}
+.day-field-wrapper{
+    text-align: center;
+
+}
+.events-wrapper{
+    text-align: center;
+}
+th, td{
+    padding: 50px;
+}
+.days-row{
+    text-align: center;
+}
+.today{
+    display: block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+
+    -moz-border-radius: 30px; /* or 50% */
+    border-radius: 30px; /* or 50% */
+
+    background-color: skyblue;
+    color: white;
+    text-align: center;
+    font-size: 1em;
+    margin-left: auto;
+}
+.event{
+    background-color: #ffc107;
+}
