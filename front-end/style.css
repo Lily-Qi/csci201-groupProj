@@ -94,19 +94,35 @@ body {
 }
 
 .division {
-	height:50%;
 	padding-left:16px;
 }
 
 .top {
 	top: 0;
+	height:50%;
 	border-bottom: 2px solid #1C658C;
 	padding-bottom: 16px;
 	
 }
 .bottom {
 	bottom: 0;
+	height:50%;
 	padding-top: 16px;
+}
+
+.infoPart {
+	width: 700px;
+	height: 700px;
+	margin-left:0px;
+}
+
+.infoPart .groupInput {
+	width: 100%;
+	border: 1px solid #398AB9;
+	border-radius: 4px;
+}
+.infoPart .row {
+	padding-bottom: 20px;
 }
 
 .division .title {
@@ -114,6 +130,39 @@ body {
 font-size: 30px;
 line-height: 58px;
 color: #5584AC;
+}
+
+#emailInput {
+	padding-bottom:20px;
+}
+
+#addMemberBtn {
+	color: white;
+	background: #398AB9;
+	border-radius: 10px;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	border: none;
+	text-align: center;
+}
+
+#createButton {
+	height: 40px;
+	width: 100%;
+	color: white;
+	background: #398AB9;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.division textarea {
+	width:100%;
+	border: 1px solid #398AB9;
+	border-radius: 4px;
+	
 }
 
 .top button {
