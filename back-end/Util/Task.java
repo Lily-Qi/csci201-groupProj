@@ -4,12 +4,20 @@ import java.util.ArrayList;
 
 public class Task {
 	private String TaskName;
-	private String TaskDescription;
+	private String TaskDueDate;
 	
-	public Task(String TaskName, ArrayList<User> AssignedUsers, String TaskDescription) {
-		this.TaskName = TaskName;
-		this.TaskDescription = TaskDescription;
+	public void setTaskName(String name) {
+		TaskName = name;
 	}
-
 	
+	public void setDueDate(String date) {
+		TaskDueDate = date;
+	}
+	public String getTaskName() {
+		return TaskName;
+	}
+	
+	public String TaskDueDate() {
+		return TaskDueDate;
+	}
 }

@@ -8,4 +8,8 @@ public class TodoList {
 	public void addTask(Task t) {
 		TodoList.add(t);
 	}
+	
+	public ArrayList<Task> getTodoList(){
+		return TodoList;
+	}
 }
