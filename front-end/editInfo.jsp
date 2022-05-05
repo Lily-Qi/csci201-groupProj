@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
+<%@ page import="Util.User"%>
+<%@ page import="Util.Project"%>
+<%@ page import="Util.DataParser"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,14 +17,47 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/7f10118ced.js" crossorigin="anonymous"></script>
+
 <%
-	Boolean isLogin = true;
-	String groupTitle = "CSCI201";
-	String memberListString = "Tommy Trojan, Last First";
-	String description = "This project will be a web-based group project management system similar to those used in the software industry. Users can create groups and add group members to their projects. They can also use build-in to-do list and calendar to manage a group project.";
 	ArrayList<String> userEmailList = new ArrayList<String>();
 	userEmailList.add("trojan@usc.edu");
 	userEmailList.add("test@test.com");
+	DataParser dp=new DataParser();
+	Project p;
+	Boolean isLogin = false;
+	String groupTitle = "CSCI201";
+	String memberListString = "";
+	String description = "This project will be a web-based group project management system similar to those used in the software industry. Users can create groups and add group members to their projects. They can also use build-in to-do list and calendar to manage a group project.";
+	String aid;
+	int projectid=1;
+    
+	Cookie cookie = null;
+	Cookie[] cookies = null;
+	cookies = request.getCookies();
+	int cookieexist=0;
+	String userid="";
+	if (cookies != null) {
+	for (int i = 0; i < cookies.length; i++) {
+		   cookie = cookies[i];
+		   
+		   if(cookie.getName().equals("projectid")){
+			    groupTitle=cookie.getValue();
+			    aid=groupTitle;
+			    projectid=Integer.valueOf(aid);
+		   }
+		 
+		} 
+	}
+	p=dp.getProject(projectid);
+	groupTitle=p.getTitle();
+	description=p.getDescription();
+	ArrayList<String> members=p.getMemeber();
+	for(int i=0;i<members.size();i++){
+		memberListString+=members.get(i);
+		if(i!=members.size()-1){
+			memberListString+=", ";
+		}
+	}
 %>
 <script>
 
@@ -63,11 +99,11 @@ function removeInput(btn){
                             <i class="fa-solid fa-calendar"></i> <span class="ms-1 d-none d-sm-inline">Calendar</span></a>
                     </li>
                     <li>
-                        <a href="todoList.jsp" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                        <a href="todoList.jsp" data-bs-toggle="nav-link px-0 align-middle" class="nav-link px-0 align-middle ">
                             <i class="fa-solid fa-list"></i> <span class="ms-1 d-none d-sm-inline">To-do List</span></a>
                     </li>
                     <li>
-                        <a href="index.jsp" class="nav-link px-0 align-middle">
+                        <a href="LogoutDispatcher" class="nav-link px-0 align-middle">
                             <i class="fa-solid fa-right-from-bracket"></i> <span class="ms-1 d-none d-sm-inline">Logout</span> </a>
                     </li>
                 </ul>
@@ -91,7 +127,7 @@ function removeInput(btn){
         <!-- content -->
         <div class="col py-3">
         
-		<form id="groupForm" action="groupDispatcher" method="post"> <!-- submit title and description -->
+		<form id="groupForm" action="editDispatcher" method="post"> <!-- submit title and description -->
             <div class = "division"> 
             	<p class = "title">Group Information - Editing</p>
             	<div class="container infoPart">
@@ -124,7 +160,7 @@ function removeInput(btn){
             		<div class="col"></div>
             		<div class="col"><button id = "editBtn" type = "submit"> Save </button></div>
             		<div class="col"></div>
-            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'index.jsp'"> Quit </button></div>
+            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'exitproject'"> Quit </button></div>
             		
             		</div>
             	

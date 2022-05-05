@@ -17,12 +17,40 @@
 <%
 	Boolean isLogin = false;
 	List<String> projectList = new ArrayList<String> ();
+	List<Integer> projectidList = new ArrayList<Integer> ();
+	String username="";
+	String email="";
  	/* projectList.add("project 1");
 	projectList.add("project 2");
 	projectList.add("project 3");
 	projectList.add("project 4");  */
 	//Boolean isProjectEmpty = true;
-%>             
+%>
+<%@ page import="Util.User"%>
+<%@ page import="Util.Project"%>
+<%@ page import="Util.DataParser"%>
+<% 			
+			DataParser dp=new DataParser();
+			Cookie cookie = null;
+			User theuser=null;
+    		Cookie[] cookies = null;
+    		cookies = request.getCookies();
+    		int cookieexist=0;
+    		String userid="";
+			if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				   cookie = cookies[i];
+				   if(cookie.getName().equals("userid")){
+					    userid=cookie.getValue();
+					    theuser= dp.getUser(Integer.valueOf(userid));
+					    email=theuser.getUseremail();
+					    username=theuser.getUsername();
+					    projectList=theuser.getProjects();
+					    projectidList=theuser.getProjId();
+				   		isLogin=true;
+				   }
+				  } 
+			}%>             
 </head>
 <body>
 	
@@ -45,7 +73,7 @@
                     	if (!isLogin) {
                     		out.println("<a href=\"auth.jsp\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-users\"></i> <span class=\"ms-1 d-none d-sm-inline\">Login/Register</span></a>");
                     	} else {
-                    		out.println("<a href=\"index.jsp\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-right-from-bracket\"></i> <span class=\"ms-1 d-none d-sm-inline\">Logout</span></a>");
+                    		out.println("<a href=\"LogoutDispatcher\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-right-from-bracket\"></i> <span class=\"ms-1 d-none d-sm-inline\">Logout</span></a>");
                     	}
                     	%>
                         
@@ -56,17 +84,12 @@
                 <%
                 if (isLogin) {
                 	out.println("<div class=\"userInfo\"> <table id=\"user\">");
-                	
                 	out.println("<tr><th id=\"icon\"><i class=\"fa-solid fa-user\"></i></th></tr>");
-                	out.println("<tr><th id=\"name\">Tommy Trojan</th></tr>");
-                	out.println("<tr><th id = \"email\">trojan@usc.edu</th></tr>");
+                	out.println("<tr><th id=\"name\">"+username+"</th></tr>");
+                	out.println("<tr><th id = \"email\">"+email+"</th></tr>");
                 	out.println("</table></div>");
-                	
                 }
-                %>
-                
-                
-                
+                %>                                                
             </div>
         </div>
         <!-- sidebar end -->
@@ -93,7 +116,7 @@
             	} else {
             		out.println("<div class=\"container-fluid\"><div class = \"row\">");
             		for (int i = 0; i< projectList.size(); i++) {
-            			out.println("<div class=\"col\"><button id=\"addButton\" type=\"button\" onclick=\"location.href='groupInfo.jsp'\">" + projectList.get(i) + "</button> </div>");
+            			out.println("<div class=\"col\"><button id=\"addButton\" type=\"submit\" onclick=\"location.href='enterproject?projectid="+projectidList.get(i)+"'\">" + projectList.get(i) + "</button> </div>");
             		}
             		out.println("</div></div>");
             	}

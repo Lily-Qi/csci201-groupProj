@@ -24,15 +24,17 @@ function add(){
 	newdiv.id = "emailInput"
     newdiv.innerHTML = "<input class = 'memberInput' type='text' name='memberEmail'><input type='button' id = 'minusBtn' value='-' onClick='removeInput(this);'>";
     document.getElementById('addMember').appendChild(newdiv);
-    }
-    
+}
 function removeInput(btn){
     btn.parentNode.remove();
 }
 </script>             
 </head>
 <body>
-	
+	<% String er = (String) request.getAttribute("error");
+	if (er != null) { %>
+		<h1 style="background-color:pink;padding: 40px 0;margin-bottom:0;text-align: center;font-size:14px;"><%out.println(er); %></h1>
+	<% }%>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> -->
 	
@@ -52,7 +54,7 @@ function removeInput(btn){
                     	if (!isLogin) {
                     		out.println("<a href=\"auth.jsp\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-users\"></i> <span class=\"ms-1 d-none d-sm-inline\">Login/Register</span></a>");
                     	} else {
-                    		out.println("<a href=\"index.jsp\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-right-from-bracket\"></i> <span class=\"ms-1 d-none d-sm-inline\">Logout</span></a>");
+                    		out.println("<a href=\"LogoutDispatcher\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-right-from-bracket\"></i> <span class=\"ms-1 d-none d-sm-inline\">Logout</span></a>");
                     	}
                     	%>
                         
@@ -63,7 +65,6 @@ function removeInput(btn){
                 <%
                 if (isLogin) {
                 	out.println("<div class=\"userInfo\"> <table id=\"user\">");
-                	
                 	out.println("<tr><th id=\"icon\"><i class=\"fa-solid fa-user\"></i></th></tr>");
                 	out.println("<tr><th id=\"name\">Tommy Trojan</th></tr>");
                 	out.println("<tr><th id = \"email\">trojan@usc.edu</th></tr>");
@@ -79,7 +80,7 @@ function removeInput(btn){
         <!-- content -->
         <div class="col py-3">
         
-		<form id="groupForm" action="groupDispatcher" method="post"> <!-- submit title and description -->
+		<form id="groupForm" action="createproject" method="post"> <!-- submit title and description -->
             <div class = "division"> 
             	<p class = "title">Create a new project</p>
             	<div class="container infoPart">
@@ -105,8 +106,6 @@ function removeInput(btn){
             			<div class="col"></div>
             		</div>
             	</div>
-            	
-            	
             </div>
             </form>
         </div>
