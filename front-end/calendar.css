@@ -26,7 +26,7 @@ th, td{
     text-align: center;
 }
 .today{
-    display: block;
+    display:inline-block;
     height: 30px;
     width: 30px;
     line-height: 30px;

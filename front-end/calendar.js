@@ -6,6 +6,16 @@ var num_of_days;
 var NCmonth;
 var NCyear;
 
+function retrieveData(){
+    $.ajax({
+        url: ""
+    })
+}
+
+function sendData(id){
+
+}
+
 function origin(){
     var date = new Date();
     document.getElementById('calheading').innerHTML = months[date.getMonth()] + ' ' + date.getFullYear();
@@ -15,7 +25,7 @@ function origin(){
     NCyear = date.getFullYear();
     curr_day = date.getDate();
     num_of_days = getNumOfDays();
-    //reloadCal();
+    reloadCal();
 }
 
 function getNumOfDays() {
@@ -24,20 +34,13 @@ function getNumOfDays() {
 }
 
 function addTask(name, dat) {
-    if(document.getElementById(dat).innerHTML == ""){
-        document.getElementById(dat).innerHTML = name;
-    }
-    else{
-        window.alert("Space occupied!");
-        /*
-        var parent = $("#" + dat).parentElement;
-        console.log(parent);
-        var spn2 = $("<span></span>");
-        spn2.addClass("event");
-        spn2.text(name);
-        parent.appendChild(spn2);
-        */
-    }
+    //create li
+    var curr_li = $("<li></li>");
+    curr_li.addClass("event");
+    curr_li.text(name);
+    //push to ul
+    var id_str = "#" + dat;
+    $(id_str).append(curr_li);
 }
 
 function reloadCal(){
@@ -48,12 +51,15 @@ function reloadCal(){
     var new_Date = new Date(months[curr_month] + " 1, " + curr_year);
     var newDay = new_Date.getDay();
     var start = newDay;
+    //num of table rows
     for(let i = 0; i < 7; i++){
         //make tr
+        //make table row
         var week = $("<tr></tr>");
+        //for the first row add blank td's
         if(i == 0){
+            //add blank days (filler)
             for(let k = 0; k < start; k++){
-                //make blank td
                 var day = $("<td></td>");
                 var div1 = $("<div></div>");
                 var div2 = $("<div></div>");
@@ -69,6 +75,8 @@ function reloadCal(){
                 day.append(div2);
                 week.append(day);
             }
+            //add the start of the real days 
+            //this handels that the date is in under the correct day of the week
             for(let j = start; j < 7; j++){
                 if(tmp <= num_of_days){
                     //make td
@@ -86,11 +94,13 @@ function reloadCal(){
                     var div2 = $("<div></div>");
                     div1.addClass("day-field-wrapper");
                     div2.addClass("events-wrapper");
-                    var spn1 = $("<span></span>");
-                    var spn2 = $("<span></span>");
+                    var spn1 = $("<span></span>");                    
+                    //var spn2 = $("<span></span>"); 
+                    var ul1 = $("<ul></ul>");
                     spn1.addClass("day-field");
-                    spn2.addClass("event");
-                    spn2.attr("id",datestr);
+                    //spn2.addClass("event");
+                    //spn2.attr("id",datestr);
+                    ul1.attr("id", datestr);
                     if(curr_month == NCmonth && curr_year == NCyear){
                         if(tmp == curr_day){
                             spn1.addClass("today");
@@ -98,7 +108,8 @@ function reloadCal(){
                     }
                     spn1.text(tmp.toString());
                     div1.append(spn1);
-                    div2.append(spn2);
+                    //div2.append(spn2); //remove later
+                    div2.append(ul1);
                     day.append(div1);
                     day.append(div2);
                     week.append(day);
@@ -106,6 +117,7 @@ function reloadCal(){
                 }
             }
         }
+        //make the rest of the calendar
         else {
             for(let j = 0; j < 7; j++){
                 if(tmp <= num_of_days){
@@ -125,10 +137,12 @@ function reloadCal(){
                     div1.addClass("day-field-wrapper");
                     div2.addClass("events-wrapper");
                     var spn1 = $("<span></span>");
-                    var spn2 = $("<span></span>");
+                    //var spn2 = $("<span></span>"); //remove later
+                    var ul1 = $("<ul></ul>");
                     spn1.addClass("day-field");
-                    spn2.addClass("event");
-                    spn2.attr("id",datestr);
+                    //spn2.addClass("event"); //remove later
+                    //spn2.attr("id",datestr); //remove later
+                    ul1.attr("id", datestr);
                     if(curr_month == NCmonth && curr_year == NCyear){
                         if(tmp == curr_day){
                             spn1.addClass("today");
@@ -136,7 +150,8 @@ function reloadCal(){
                     }
                     spn1.text(tmp.toString());
                     div1.append(spn1);
-                    div2.append(spn2);
+                    //div2.append(spn2); //remove later
+                    div2.append(ul1);
                     day.append(div1);
                     day.append(div2);
                     week.append(day);
