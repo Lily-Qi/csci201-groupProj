@@ -6,14 +6,40 @@ var num_of_days;
 var NCmonth;
 var NCyear;
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function retrieveData(){
-    $.ajax({
-        url: ""
-    })
+
 }
 
 function sendData(id){
-
+    var pseudo_csv_string = "";
+    var realID = id.substring(1);
+    var ul = document.getElementById(realID);
+    var items = ul.getElementsByTagName("li");
+    for(var i = 0; i < items.length; i++){
+        if(i == (items.length - 1)){
+            pseudo_csv_string += items[i].innerHTML;
+        }
+        else{
+            pseudo_csv_string += items[i].innerHTML;
+            pseudo_csv_string += ", ";
+        }
+    }
+    console.log(pseudo_csv_string);
+    $.ajax({
+        url: "temp", //put servlet right here
+        data: {
+            isFromAjax: "1", //in servlet String isAjax = request.getParameter("isFromAjax");
+            taskList: pseudo_csv_string, // in servlet String taskList = request.getParameter("taskList");
+            taskDate: realID
+        },
+        success: function(returnValue) {
+            console.log(returnValue);
+        }      
+    })
 }
 
 function origin(){
@@ -41,6 +67,7 @@ function addTask(name, dat) {
     //push to ul
     var id_str = "#" + dat;
     $(id_str).append(curr_li);
+    sendData(id_str);
 }
 
 function reloadCal(){
