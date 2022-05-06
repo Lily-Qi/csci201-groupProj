@@ -36,8 +36,6 @@ public class removeTodoDispatcher extends HttpServlet {
     	response.setContentType("text/html");
 		//PrintWriter out = response.getWriter();
 		tasks = request.getParameterValues("deletedTask");
-		for(String s: tasks)
-			System.out.println(s);
 		DataParser dp=new DataParser();
 		Project p;
 		Boolean isLogin = false;
@@ -72,18 +70,20 @@ public class removeTodoDispatcher extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
-        try {
-        	for(String s: tasks) {
-        		String[] task = s.split(" ");
-        		String taskName = task[0];
-        	    String DueDate = task[1]; 
-        		DataParser.removeTask(groupID, taskName, DueDate);
-        	}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        if(tasks!=null) {
+	        try {
+	        	for(String s: tasks) {
+	        		String[] task = s.split(" ");
+	        		String taskName = task[0];
+	        	    String DueDate = task[1]; 
+	        		DataParser.removeTask(groupID, taskName, DueDate);
+	        	}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
 		response.sendRedirect("todoList.jsp?projectid="+groupID);
     }
 }

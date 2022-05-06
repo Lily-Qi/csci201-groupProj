@@ -11,6 +11,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import Util.Constant;
+import Util.*;
 @WebServlet("/editDispatcher")
 
 public class editDispatcher extends HttpServlet {
@@ -24,6 +25,7 @@ public class editDispatcher extends HttpServlet {
     private static boolean memberexist;
     private static boolean already;
     private static int projectid;
+    private static ArrayList<String> project_members;
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
@@ -31,6 +33,7 @@ public class editDispatcher extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	Project p;
     	response.setContentType("text/html");
 		//PrintWriter out = response.getWriter();
 		title = request.getParameter("groupTitle");
@@ -52,6 +55,13 @@ public class editDispatcher extends HttpServlet {
 				    projectid=Integer.valueOf(aid);
 			   }
 			} 
+		}
+		try {
+			p = DataParser.getProject(projectid);
+			project_members = p.getMemeber();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
     }
 
@@ -98,16 +108,19 @@ public class editDispatcher extends HttpServlet {
 						}catch (SQLException ex){
 							System.out.println ("SQLException: " + ex.getMessage());
 							}
-				member+=members[i];
-				if(i!=members.length-1) {
-					member+=", ";
+				already = false;
+				for(String s:project_members) {
+					if(email.equals(s))
+					{
+						already = true;
+						break;
+					}
 				}
-			}
-			for(String s:members) {
-				if(s.equals(member))
-				{
-					already = true;
-					break;
+				if(!already) {
+					member+=members[i];
+					if(i!=members.length-1) {
+						member+=", ";
+					}
 				}
 			}
 			if(memberexist&&!already) {

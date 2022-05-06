@@ -8,7 +8,7 @@ import java.util.List;
 public class DataParser {
  public static User getUser(int ID) throws SQLException {
   User usr = new User(ID);
-     String db = "jdbc:mysql://localhost:3306/finalproject";
+    String db = "jdbc:mysql://localhost:3306/finalproject";
   String user = Constant.DBUserName;
   String pwd = Constant.DBUserName;
         try {
@@ -19,7 +19,6 @@ public class DataParser {
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery(sql);
            if(rs.next()) {
-        	 System.out.println(rs);
 	         usr.setUserName(rs.getString("name"));
 	         usr.setPassword(rs.getString("password"));
 	         usr.setUserEmail(rs.getString("email"));
@@ -155,7 +154,6 @@ public class DataParser {
 	            Class.forName("com.mysql.jdbc.Driver");
 	            Connection conn = DriverManager.getConnection(db, user, pwd);
 	            String sql = "DELETE FROM tasks t WHERE t.tasks_groupID = "+projectID + " AND t.taskInfo = '"+taskName+"' AND t.taskDueDate = '"+DueDate+"';";
-	            System.out.println(sql);
 	            Statement s = conn.createStatement();
 	            s.execute(sql);
 	            conn.close();
