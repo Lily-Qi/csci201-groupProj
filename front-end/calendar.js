@@ -14,27 +14,14 @@ function retrieveData(){
 
 }
 
-function sendData(id){
-    var pseudo_csv_string = "";
+function sendData(task, id){
     var realID = id.substring(1);
-    var ul = document.getElementById(realID);
-    var items = ul.getElementsByTagName("li");
-    for(var i = 0; i < items.length; i++){
-        if(i == (items.length - 1)){
-            pseudo_csv_string += items[i].innerHTML;
-        }
-        else{
-            pseudo_csv_string += items[i].innerHTML;
-            pseudo_csv_string += ", ";
-        }
-    }
-    console.log(pseudo_csv_string);
     $.ajax({
-        url: "temp", //put servlet right here
+        url: "./backend/TodoDispatcher", //put servlet right here
         data: {
-            isFromAjax: "1", //in servlet String isAjax = request.getParameter("isFromAjax");
-            taskList: pseudo_csv_string, // in servlet String taskList = request.getParameter("taskList");
-            taskDate: realID
+            //isFromAjax: "1", //in servlet String isAjax = request.getParameter("isFromAjax");
+            taskName: task, // in servlet String taskList = request.getParameter("taskList");
+            taskDueDate: realID
         },
         success: function(returnValue) {
             console.log(returnValue);
@@ -67,7 +54,7 @@ function addTask(name, dat) {
     //push to ul
     var id_str = "#" + dat;
     $(id_str).append(curr_li);
-    sendData(id_str);
+    sendData(name, id_str);
 }
 
 function reloadCal(){
