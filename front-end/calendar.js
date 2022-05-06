@@ -6,27 +6,37 @@ var num_of_days;
 var NCmonth;
 var NCyear;
 
+var retrieved;
+
+//let username = document.username; //username should be cookie
+
+/*
+Let's a make a cookie on auth.jsp (which we will remove at logout) to allow calendar.js
+to read that cookie. Once we read that cookie we can make a ajax request to the user data servlet
+parser which should return a string of all their tasks (JSON would be best). Afterward i can 
+add code that will parse it correctly and add it to the correct dates during calendar generation
+*/
+
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function retrieveData(){
-
+    $.ajax({
+        url:"", //servlet to get a users tasks
+        data: {
+            isFromAjax: "1",
+            userID: username
+        },
+        success: function(returnValue){
+            retrieved = returnValue;
+        }
+    })
 }
 
-function sendData(task, id){
-    var realID = id.substring(1);
-    $.ajax({
-        url: "/back-end/TodoDispatcher", //put servlet right here
-        data: {
-            isFromAjax: "1", // used to ensure that servlet knows its from ajax and not a form
-            taskName: task, 
-            taskDueDate: realID
-        },
-        success: function(returnValue) {
-            console.log(returnValue);
-        }      
-    })
+function sendData(name, dat){
+    window.location.href="TodoDispatcher?taskName=" + name + "&taskDueDate=" + dat;
 }
 
 function origin(){
@@ -38,6 +48,8 @@ function origin(){
     NCyear = date.getFullYear();
     curr_day = date.getDate();
     num_of_days = getNumOfDays();
+    retrieveData();
+    console.log(retrieved);
     reloadCal();
 }
 
@@ -54,7 +66,7 @@ function addTask(name, dat) {
     //push to ul
     var id_str = "#" + dat;
     $(id_str).append(curr_li);
-    sendData(name, id_str);
+    sendData(name, dat);
 }
 
 function reloadCal(){
