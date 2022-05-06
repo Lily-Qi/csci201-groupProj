@@ -48,7 +48,7 @@ public class Project {
 		return members;
 	}
 	
-	public void addMember(String u) {
-		members.add(u);
+	public void setMembers(ArrayList<String> m) {
+		members = m;
 	}
 }
