@@ -14,14 +14,15 @@ import Util.Constant;
 @WebServlet("/editDispatcher")
 
 public class editDispatcher extends HttpServlet {
-    @Serial
-    //private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	@Serial
     private static String title;
     private static String[] members;
     private static String member;
     private static String descript;
     private static String error = "Invalid title, member, or discription. Please try again.";
     private static boolean memberexist;
+    private static boolean already;
     private static int projectid;
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -52,7 +53,6 @@ public class editDispatcher extends HttpServlet {
 			   }
 			} 
 		}
-		System.out.println(projectid);
     }
 
     /**
@@ -64,6 +64,7 @@ public class editDispatcher extends HttpServlet {
             throws ServletException, IOException {
     	member="";
     	memberexist=true;
+    	already = false;
         doGet(request, response);
         Connection conn = null;
         String db = "jdbc:mysql://localhost:3306/finalproject";
@@ -102,7 +103,14 @@ public class editDispatcher extends HttpServlet {
 					member+=", ";
 				}
 			}
-			if(memberexist) {
+			for(String s:members) {
+				if(s.equals(member))
+				{
+					already = true;
+					break;
+				}
+			}
+			if(memberexist&&!already) {
 				//System.out.println("member exist!");
 				try (PreparedStatement thesql = conn.prepareStatement(sql);PreparedStatement pst3 = conn.prepareStatement(sql3);) {
 					Statement st;
@@ -135,7 +143,6 @@ public class editDispatcher extends HttpServlet {
     			thesql.setString(1, title);
     			thesql.setString(2, descript);
     			thesql.setInt(3, projectid);
-    			System.out.println(thesql);
     			thesql.execute();
     			response.sendRedirect("groupInfo.jsp？projectid="+projectid);
 			}
