@@ -17,10 +17,10 @@ function retrieveData(){
 function sendData(task, id){
     var realID = id.substring(1);
     $.ajax({
-        url: "./backend/TodoDispatcher", //put servlet right here
+        url: "/backend/TodoDispatcher", //put servlet right here
         data: {
-            //isFromAjax: "1", //in servlet String isAjax = request.getParameter("isFromAjax");
-            taskName: task, // in servlet String taskList = request.getParameter("taskList");
+            isFromAjax: "1", // used to ensure that servlet knows its from ajax and not a form
+            taskName: task, 
             taskDueDate: realID
         },
         success: function(returnValue) {
