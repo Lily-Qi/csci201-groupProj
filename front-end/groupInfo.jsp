@@ -47,6 +47,7 @@
 	groupTitle=p.getTitle();
 	description=p.getDescription();
 	ArrayList<String> members=p.getMemeber();
+	System.out.println(members.size());
 	for(int i=0;i<members.size();i++){
 		memberListString+=members.get(i);
 		if(i!=members.size()-1){

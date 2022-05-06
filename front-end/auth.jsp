@@ -13,6 +13,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/7f10118ced.js" crossorigin="anonymous"></script>
+<script type="module" src="index.js"></script>
+
 <style type="text/css">
 .customGPlusSignIn {
 	  height: 40px;
@@ -83,7 +85,7 @@
         
             <div class = "division top">
             
-            	<form action="RegisterDispatcher" method="POST">
+            	<form action="RegisterDispatcher" method="POST" id = "signup-form">
             	<div class = "container">
             	<div class = "row">
             		<div class = "col col-md-auto">
@@ -128,7 +130,7 @@
             </div>
             
             <div class = "division bottom">
-            	<form action="LoginDispatcher" method="POST">
+            	<form action="LoginDispatcher" method="POST" id="login-form">
             	<div class = "container">
             	<div class = "row">
             		<div class = "col col-md-auto">
@@ -159,10 +161,13 @@
     					<div id="customBtn" class="customGPlusSignIn"> <i class="fa-brands fa-google"></i> Sign in with Google</div>
     					</div>
     					<div id="name"></div>
-    					<script>startApp();</script>
+    					
             			</div>
             			<div class = "col">
             			<button type="submit" class = "accountButton"> <i class="fa-solid fa-user-plus"></i> Sign in </button>
+            			</div>
+            			<div class = "button">
+            			<button type="button" class = "accountButton" id = "googleLogin">sign in with firebase </button>
             			</div>   
             		</div>
             		
@@ -176,4 +181,5 @@
      </div>
 
 </body>
+
 </html>

@@ -17,6 +17,8 @@
 <%@ page import="Util.User"%>
 <%@ page import="Util.Project"%>
 <%@ page import="Util.DataParser"%>
+<%@ page import="Util.TodoList"%>
+<%@ page import="Util.Task"%>
 <%
 	DataParser dp=new DataParser();
 	Project p;
@@ -45,9 +47,8 @@
 	}
 	p=dp.getProject(projectid);
 	
-	List<String> taskList = new ArrayList<String> ();
-	taskList.add("task1 2020-1-2");
-	taskList.add("task2 2022-2-8");
+	TodoList taskList = new TodoList();
+	taskList = dp.getTodo(projectid);
 	
 %>
 <script>
@@ -115,36 +116,38 @@ function closeForm() {
 		
             <div class = "division"> 
             	<p class = "title">To-do List: Deleting tasks...</p>
+            	<form action="removeTodoDispatcher" method="Post">
             	<div class="container infoPart">
             		<%
-            		if (taskList.size() == 0) {
+            		if (taskList.getTodoList().size() == 0) {
             			out.println("<p id=\"emptyMessage\">No tasks yet... Try to add a new task first!</p>");
             		}
             		else {
-            			for (int i = 0; i<taskList.size(); i++) {
+            			for (int i = 0; i<taskList.getTodoList().size(); i++) {
             				out.println("<div class=\"form-check\">");
-            				out.println("<input class=\"form-check-input\" type=\"checkbox\" name=\"deletedTask\" id=\"flexCheckDefault\" value=\"" + taskList.get(i) + "\">" );
-            				out.println("<label class=\"form-check-label\" for=\"flexCheckDefault\">" + taskList.get(i) + "</label></div>");
+            				out.println("<input class=\"form-check-input\" type=\"checkbox\" name=\"deletedTask\" id=\"flexCheckDefault\" value=\"" + taskList.getTodoList().get(i).getTaskName() + " "+ taskList.getTodoList().get(i).getTaskDueDate() + "\">" );
+            				out.println("<label class=\"form-check-label\" for=\"flexCheckDefault\">" + taskList.getTodoList().get(i).getTaskName() + " "+ taskList.getTodoList().get(i).getTaskDueDate()+ "</label></div>");
             			}
             		}
             		%>
             	</div>
+            	
             	<div class="container twoButtons" align = "right">
+            	
             		<div class = "row row-cols-2">
             		<div class="col"></div>
-            		<div class="col"><button id = "quitBtn" onclick = "location.href = 'deleteTaskDispatcher'"> Delete</button></div>
+            		<div class="col"><button id = "quitBtn" type="submit"> Delete</button></div>
             		<div class="col"></div>
-            		<div class="col"><button id = "editBtn" onclick = "location.href = 'todoList.jsp'"> Cancel</button></div>
-            		
+            		<div class="col"><button id = "editBtn" type="button" onclick = "location.href = 'todoList.jsp'"> Cancel</button></div>
             		</div>
-            	
+            	 
             	</div>
-				
+				</form>	
             </div>
-			
+		
         </div>
         <!-- content end -->
-        
+       
       </div>
      </div>
 

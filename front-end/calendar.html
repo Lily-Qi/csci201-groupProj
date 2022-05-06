@@ -69,7 +69,7 @@
               <li>
                 <a
                   href="todoList.jsp"
-                  data-bs-toggle="nav-link px-0 align-middle"
+                  data-bs-toggle="collapse"
                   class="nav-link px-0 align-middle"
                 >
                   <i class="fa-solid fa-list"></i>
@@ -77,7 +77,7 @@
                 >
               </li>
               <li>
-                <a href="LogoutDispatcher" class="nav-link px-0 align-middle">
+                <a href="index.jsp" class="nav-link px-0 align-middle">
                   <i class="fa-solid fa-right-from-bracket"></i>
                   <span class="ms-1 d-none d-sm-inline">Logout</span>
                 </a>
@@ -85,8 +85,8 @@
             </ul>
             <hr />
             <div class="userInfo">
-              <table  border=none>
-                <tr id="user">
+              <table id="user">
+                <tr>
                   <th id="icon"><i class="fa-solid fa-user"></i></th>
                 </tr>
                 <tr>
@@ -159,268 +159,6 @@
                     <th>Sat</th>
                   </tr>
                 </thead>
-                <tbody id="table_body">
-                  <tr>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">1</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-01"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">2</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-02"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field today">3</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-03"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">4</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-04"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">5</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-05"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">6</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-06"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">7</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-07"></span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">8</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-08"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">9</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-09"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">10</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-10"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">11</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-11"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">12</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-12"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">13</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-13"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">14</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-14"></span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">15</span>
-                      </div><div class="events-wrapper">
-                        <span class="event" id="2022-05-15"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">16</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-16"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">17</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-17"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">18</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-18"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">19</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-19"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">20</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-20"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">21</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-21"></span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">22</span>
-                      </div><div class="events-wrapper">
-                        <span class="event" id="2022-05-22"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">23</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-23"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">24</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-24"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">25</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-25"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">26</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-26"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">27</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-27"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">28</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-28"></span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">29</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-29"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">30</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-30"></span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="day-field-wrapper">
-                        <span class="day-field">31</span>
-                      </div>
-                      <div class="events-wrapper">
-                        <span class="event" id="2022-05-31"></span>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                  </tr>
-                  <tr>
-                  </tr>
-                </tbody>
               </table>
             </div>
           </div>

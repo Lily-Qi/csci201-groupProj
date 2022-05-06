@@ -17,6 +17,8 @@
 <%@ page import="Util.User"%>
 <%@ page import="Util.Project"%>
 <%@ page import="Util.DataParser"%>
+<%@ page import="Util.TodoList"%>
+<%@ page import="Util.Task"%>
 <%
 	DataParser dp=new DataParser();
 	Project p;
@@ -45,9 +47,8 @@
 	}
 	p=dp.getProject(projectid);
 	
-	List<String> taskList = new ArrayList<String> ();
-	taskList.add("task1 2020-1-2");
-	taskList.add("task2 2022-2-8");
+	TodoList taskList = new TodoList();
+	taskList = dp.getTodo(projectid);
 	
 %>
 <script>
@@ -117,12 +118,12 @@ function closeForm() {
             	<p class = "title">To-do List</p>
             	<div class="container infoPart">
             		<%
-            		if (taskList.size() == 0) {
+            		if (taskList.getTodoList().size() == 0) {
             			out.println("<p id=\"emptyMessage\">No tasks yet... Try to add a new task!</p>");
             		}
             		else {
-            			for (int i = 0; i<taskList.size(); i++) {
-            				out.println("<p id=\"groupTask\">" + taskList.get(i) + "</p>");
+            			for (int i = 0; i<taskList.getTodoList().size(); i++) {
+            				out.println("<p id=\"groupTask\">" + taskList.getTodoList().get(i).getTaskName() + " "+ taskList.getTodoList().get(i).getTaskDueDate()+ "</p>");
             			}
             		}
             		%>
@@ -138,7 +139,7 @@ function closeForm() {
             	
             	</div>
             	<div class="form-popup" id="myForm">
-            	<form action="createTaskDispatcher" class="form-container">
+            	<form action="TodoDispatcher" method="Post" class="form-container">
             	<p><b>Add A New Task</b></p>
             	<label for="name"><b>Task</b></label>
             	<input type="text" placeholder="Enter task" name="taskName" required>
@@ -146,7 +147,6 @@ function closeForm() {
             	<input type="date" placeholder="Enter date" name="taskDueDate" required>
             	<button type="submit" class="btn">Create</button>
             	<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-       
             	</form>
             	</div>
 

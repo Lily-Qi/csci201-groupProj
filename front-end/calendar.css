@@ -9,23 +9,24 @@ html,body
 .month{
     border: 1px solid;
 }
-.month table, th, td {
+table, th, td {
     border: 1px solid;
 }
 .day-field-wrapper{
     text-align: center;
+
 }
 .events-wrapper{
     text-align: center;
 }
-.month th, td{
+th, td{
     padding: 50px;
 }
 .days-row{
     text-align: center;
 }
 .today{
-    display: block;
+    display:inline-block;
     height: 30px;
     width: 30px;
     line-height: 30px;

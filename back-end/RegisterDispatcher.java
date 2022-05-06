@@ -58,7 +58,7 @@ public class RegisterDispatcher extends HttpServlet {
         // TODO Auto-generated method stub
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String db = "jdbc:mysql://localhost:3306/finalproject";
         String user = Constant.DBUserName;
       	String pwd = Constant.DBPassword;
 		String sql = "INSERT INTO users (name, password, email) VALUES (?, ?, ?)";
@@ -89,31 +89,31 @@ public class RegisterDispatcher extends HttpServlet {
 					}
 		Helper ahelper=new Helper();
 		if (email.contentEquals("")) {
-			error = "register email missing";
+			error = "<p> register email missing</p>";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (!ahelper.isValidEmail(email)) {
-			error = "invalid email format";
+			error = "<p>invalid email format</p>";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (exist==1) {
-			error = "register email already existed";
+			error = "<p>register email already existed</p>";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (usrname.contentEquals("")) {
-			error = "register username missing";
+			error = "<p>register username missing</p>";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (!ahelper.validName(usrname)) {
-			error = "invalid username format";
+			error = "<p>invalid username format</p>";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (psw.contentEquals("")) {
-			error = "register password missing";
+			error = "<p>register password missing</p>";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (!psw.contentEquals(cpsw)) {
-			error = "register password does not match confirm password";
+			error = "<p>register password does not match confirm password</p>";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);
 	    }
