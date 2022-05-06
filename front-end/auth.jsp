@@ -13,6 +13,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/7f10118ced.js" crossorigin="anonymous"></script>
+<script type="module" src="index.js"></script>
+
 <style type="text/css">
 .customGPlusSignIn {
 	  height: 40px;
@@ -33,10 +35,7 @@
 <%Boolean isLogin = false; %>             
 </head>
 <body>
-	<% String er = (String) request.getAttribute("error");
-	if (er != null) { %>
-		<h1 style="background-color:pink;padding: 40px 0;margin-bottom:0;text-align: center;font-size:14px;"><%out.println(er); %></h1>
-	<% }%>
+	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
 	<div class="container-fluid">
@@ -55,7 +54,7 @@
                     	if (!isLogin) {
                     		out.println("<a href=\"auth.jsp\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-users\"></i> <span class=\"ms-1 d-none d-sm-inline\">Login/Register</span></a>");
                     	} else {
-                    		out.println("<a href=\"index.jsp\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-right-from-bracket\"></i> <span class=\"ms-1 d-none d-sm-inline\">Logout</span></a>");
+                    		out.println("<a href=\"LogoutDispatcher\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-right-from-bracket\"></i> <span class=\"ms-1 d-none d-sm-inline\">Logout</span></a>");
                     	}
                     	%>
                         
@@ -85,8 +84,22 @@
         <div class="col py-3">
         
             <div class = "division top">
-            	<form action="RegisterDispatcher" method="POST"> 
-            	<p class = "title">Register</p>
+            
+            	<form action="RegisterDispatcher" method="POST" id = "signup-form">
+            	<div class = "container">
+            	<div class = "row">
+            		<div class = "col col-md-auto">
+            		<p class = "title">Register</p>
+            		</div>
+            		<div class = "col">
+            		<% String er = (String) request.getAttribute("error");
+            		if (er != null) { %>
+            		<div class="alert alert-danger" role="alert"><%out.println(er); %></div>
+            		<% }%>
+            		</div>
+            	</div>
+            	</div>
+            	
             	<div class = "container-fluid">
             		<div class = "row row-cols-2">
             			<div class = "col">
@@ -117,8 +130,21 @@
             </div>
             
             <div class = "division bottom">
-            	<form action="LoginDispatcher" method="POST">  
-            	<p class = "title">Login</p>
+            	<form action="LoginDispatcher" method="POST" id="login-form">
+            	<div class = "container">
+            	<div class = "row">
+            		<div class = "col col-md-auto">
+            		<p class = "title">Login</p>
+            		</div>
+            		<div class = "col">
+            		<% String e = (String) request.getAttribute("loginError");
+            		if (e != null) { %>
+            		<div class="alert alert-danger" role="alert"><%out.println(e); %></div>
+            		<% }%>
+            		</div>
+            	</div>
+            	</div>  
+            	
             	<div class = "container-fluid">
             		<div class = "row row-cols-2 align-items-center">
             			<div class = "col">
@@ -135,10 +161,13 @@
     					<div id="customBtn" class="customGPlusSignIn"> <i class="fa-brands fa-google"></i> Sign in with Google</div>
     					</div>
     					<div id="name"></div>
-    					<script>startApp();</script>
+    					
             			</div>
             			<div class = "col">
             			<button type="submit" class = "accountButton"> <i class="fa-solid fa-user-plus"></i> Sign in </button>
+            			</div>
+            			<div class = "button">
+            			<button type="button" class = "accountButton" id = "googleLogin">sign in with firebase </button>
             			</div>   
             		</div>
             		
@@ -152,4 +181,5 @@
      </div>
 
 </body>
+
 </html>

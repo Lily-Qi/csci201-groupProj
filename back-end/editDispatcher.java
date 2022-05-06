@@ -128,8 +128,12 @@ public class editDispatcher extends HttpServlet {
 				try (PreparedStatement thesql = conn.prepareStatement(sql);PreparedStatement pst3 = conn.prepareStatement(sql3);) {
 					Statement st;
 					st = conn.createStatement();
+					String repeat_mem = "";
 					for(int i=0;i<members.length;i++) {
 						String email=members[i];
+						if(!repeat_mem.contains(email)) {
+							repeat_mem+=email;
+							repeat_mem+= ",";
 								pst3.setString(1, email);
 								ResultSet rs2 = pst3.executeQuery();
 								rs2.next();
@@ -139,6 +143,7 @@ public class editDispatcher extends HttpServlet {
 					            PreparedStatement pst4 = conn.prepareStatement(sql4);
 					            pst4.execute();
 							}
+					}
 				}
 				catch (SQLException ex){
 					System.out.println ("SQLException: " + ex.getMessage());

@@ -150,7 +150,7 @@ function removeInput(btn){
             		<div class="col"></div>
             		<div class="col"><button id = "editBtn" type = "submit"> Save </button></div>
             		<div class="col"></div>
-            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'groupinfo.jsp'"> Quit </button></div>
+            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'deleteproject'"> Quit </button></div>
             		
             		</div>
             	
