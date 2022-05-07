@@ -6,7 +6,7 @@ var num_of_days;
 var NCmonth;
 var NCyear;
 
-var retrieved;
+var mainmap = new Map(); 
 
 //let username = document.username; //username should be cookie
 
@@ -29,10 +29,18 @@ function retrieveData(){
             isFromAjax: "1",
             userID: username
         },
-        success: function(returnValue){
-            retrieved = returnValue;
+        success: function(results){
+            parseJSON(results);
         }
     })
+}
+
+function parseJSON(resultsString){
+    let resultsJS = resultsString;
+    ///for loop of size of task dictionary
+    //if taskDueDate key does not exist in mainmap
+    //add it to main map
+    //make key taskDueDate for mainmap and its value is an array of the task names
 }
 
 function sendData(name, dat){
@@ -48,8 +56,8 @@ function origin(){
     NCyear = date.getFullYear();
     curr_day = date.getDate();
     num_of_days = getNumOfDays();
-    retrieveData();
-    console.log(retrieved);
+    //retrieveData();
+    //console.log(retrieved);
     reloadCal();
 }
 
