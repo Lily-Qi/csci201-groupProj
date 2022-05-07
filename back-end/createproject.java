@@ -11,6 +11,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import Util.Constant;
+import Util.DataParser;
+import Util.User;
 @WebServlet("/createproject")
 
 public class createproject extends HttpServlet {
@@ -18,7 +20,9 @@ public class createproject extends HttpServlet {
     //private static final long serialVersionUID = 1L;
     private static String title;
     private static String[] members;
+    private static String[] addmembers;
     private static String member;
+    private static String email;
     private static String descript;
     private static String error = "Invalid title, member, or discription. Please try again.";
     private static boolean memberexist;
@@ -33,9 +37,50 @@ public class createproject extends HttpServlet {
     	response.setContentType("text/html");
 		//PrintWriter out = response.getWriter();
 		title = request.getParameter("groupTitle");
-		members = request.getParameterValues("memberEmail");
+		addmembers = request.getParameterValues("memberEmail");
+		
 		//String[] members=member.split(",");
 		descript = request.getParameter("groupDescription");
+		Cookie cookie = null;
+		User theuser=null;
+		DataParser dp=new DataParser();
+		Cookie[] cookies = null;
+		cookies = request.getCookies();
+		int cookieexist=0;
+		String userid="";
+		if (cookies != null) {
+		for (int i = 0; i < cookies.length; i++) {
+			   cookie = cookies[i];
+			   if(cookie.getName().equals("userid")){
+				    userid=cookie.getValue();
+				    try {
+						theuser= dp.getUser(Integer.valueOf(userid));
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				    if(theuser!=null){
+				    	email=theuser.getUseremail();
+
+				    }
+				    
+			   }
+			  } 
+		}
+		if(addmembers==null || addmembers[0]=="") {
+			members=new String[1];
+			members[0]=email;
+		}
+		else {
+			members=new String[addmembers.length+1];
+			for(int i=0;i<addmembers.length;i++) {
+				members[i]=addmembers[i];
+			}
+			members[members.length-1]=email;
+		}
     }
 
     /**
@@ -50,10 +95,10 @@ public class createproject extends HttpServlet {
     	num=0;
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
-		String sql = "INSERT INTO projects (title, description) VALUES (?, ?)";
+		String sql = "INSERT INTO Projects (title, description) VALUES (?, ?)";
 		//String sql4 = "INSERT INTO users_has_groups (users_userID, groups_groupID) VALUES (?, ?)";
 		String sql2 = "SELECT COUNT(email) AS total FROM users WHERE email=?";
 		String sql3="SELECT userID FROM users WHERE email=?";
@@ -75,7 +120,6 @@ public class createproject extends HttpServlet {
 				rs1.next();
 				if(rs1.getInt("total")==0) {
 					error="did not found the user with email "+email;
-					//request.getRequestDispatcher("newProject.jsp").include(request, response);
 					memberexist=false;
 				}
 					}catch (SQLException ex){
@@ -98,26 +142,24 @@ public class createproject extends HttpServlet {
 			}
 			else {
 	            Statement st;
-				try {
-					st = conn.createStatement();
-		            String myStatement = "select count(*) as total from projects";
-		            ResultSet rs = st.executeQuery(myStatement);
-	            while(rs.next()){
-	                num = (rs.getInt("total"))+1;
-	            }
-	            } catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				try (PreparedStatement thesql = conn.prepareStatement(sql);PreparedStatement pst3 = conn.prepareStatement(sql3);) {
 	    			thesql.setString(1, title);
 	    			thesql.setString(2, descript);
 	    			thesql.execute();
-				    
-				    
+						st = conn.createStatement();
+			            String myStatement = "select groupID from Projects where title='"+title+"' AND description='"+descript+"';";
+			            ResultSet rs = st.executeQuery(myStatement);
+		            while(rs.next()){
+		                num = (rs.getInt("groupID"));
+		            }
+				String repeat_mem = "";    
 				    
 				for(int i=0;i<members.length;i++) {
 					String email=members[i];
+					if(!repeat_mem.contains(email)) {
+							repeat_mem+=email;
+							repeat_mem+= ",";
 							pst3.setString(1, email);
 							ResultSet rs2 = pst3.executeQuery();
 							rs2.next();
@@ -127,7 +169,8 @@ public class createproject extends HttpServlet {
 				            PreparedStatement pst4 = conn.prepareStatement(sql4);
 				            pst4.execute();
 						}
-			    response.sendRedirect("groupInfo.jsp？projectid="+num);
+					}
+			    response.sendRedirect("enterproject？projectid="+num);
 				}
 			    catch (SQLException ex){
 					System.out.println ("SQLException: " + ex.getMessage());

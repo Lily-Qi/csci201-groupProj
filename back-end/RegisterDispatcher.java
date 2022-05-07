@@ -18,7 +18,6 @@ import java.io.Serial;
 public class RegisterDispatcher extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
-    private static final String url = "jdbc:mysql://localhost:3306/PA4Users";
     private static String email;
     private static String usrname;
     private static String psw;
@@ -58,7 +57,7 @@ public class RegisterDispatcher extends HttpServlet {
         // TODO Auto-generated method stub
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
       	String pwd = Constant.DBPassword;
 		String sql = "INSERT INTO users (name, password, email) VALUES (?, ?, ?)";
@@ -89,31 +88,31 @@ public class RegisterDispatcher extends HttpServlet {
 					}
 		Helper ahelper=new Helper();
 		if (email.contentEquals("")) {
-			error = "<p> register email missing</p>";
+			error = "Register email missing";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (!ahelper.isValidEmail(email)) {
-			error = "<p>invalid email format</p>";
+			error = "Invalid email format";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (exist==1) {
-			error = "<p>register email already existed</p>";
+			error = "Register email already existed";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (usrname.contentEquals("")) {
-			error = "<p>register username missing</p>";
+			error = "Register username missing";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (!ahelper.validName(usrname)) {
-			error = "<p>invalid username format</p>";
+			error = "Invalid username format";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (psw.contentEquals("")) {
-			error = "<p>register password missing</p>";
+			error = "Register password missing";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);}
 		else if (!psw.contentEquals(cpsw)) {
-			error = "<p>register password does not match confirm password</p>";
+			error = "Register password does not match confirm password";
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);
 	    }

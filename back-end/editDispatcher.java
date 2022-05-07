@@ -11,6 +11,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import Util.Constant;
+import Util.*;
 @WebServlet("/editDispatcher")
 
 public class editDispatcher extends HttpServlet {
@@ -24,6 +25,7 @@ public class editDispatcher extends HttpServlet {
     private static boolean memberexist;
     private static boolean already;
     private static int projectid;
+    private static ArrayList<String> project_members;
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
@@ -31,6 +33,7 @@ public class editDispatcher extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	Project p;
     	response.setContentType("text/html");
 		//PrintWriter out = response.getWriter();
 		title = request.getParameter("groupTitle");
@@ -53,6 +56,13 @@ public class editDispatcher extends HttpServlet {
 			   }
 			} 
 		}
+		try {
+			p = DataParser.getProject(projectid);
+			project_members = p.getMemeber();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     /**
@@ -67,10 +77,10 @@ public class editDispatcher extends HttpServlet {
     	already = false;
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
-		String sql = "UPDATE projects SET title=?, description=? WHERE groupID=?";
+		String sql = "UPDATE Projects SET title=?, description=? WHERE groupID=?";
 		String sql2 = "SELECT COUNT(email) AS total FROM users WHERE email=?";
 		String sql3="SELECT userID FROM users WHERE email=?";
 		try {
@@ -98,16 +108,19 @@ public class editDispatcher extends HttpServlet {
 						}catch (SQLException ex){
 							System.out.println ("SQLException: " + ex.getMessage());
 							}
-				member+=members[i];
-				if(i!=members.length-1) {
-					member+=", ";
+				already = false;
+				for(String s:project_members) {
+					if(email.equals(s))
+					{
+						already = true;
+						break;
+					}
 				}
-			}
-			for(String s:members) {
-				if(s.equals(member))
-				{
-					already = true;
-					break;
+				if(!already) {
+					member+=members[i];
+					if(i!=members.length-1) {
+						member+=", ";
+					}
 				}
 			}
 			if(memberexist&&!already) {
@@ -115,8 +128,12 @@ public class editDispatcher extends HttpServlet {
 				try (PreparedStatement thesql = conn.prepareStatement(sql);PreparedStatement pst3 = conn.prepareStatement(sql3);) {
 					Statement st;
 					st = conn.createStatement();
+					String repeat_mem = "";
 					for(int i=0;i<members.length;i++) {
 						String email=members[i];
+						if(!repeat_mem.contains(email)) {
+							repeat_mem+=email;
+							repeat_mem+= ",";
 								pst3.setString(1, email);
 								ResultSet rs2 = pst3.executeQuery();
 								rs2.next();
@@ -126,6 +143,7 @@ public class editDispatcher extends HttpServlet {
 					            PreparedStatement pst4 = conn.prepareStatement(sql4);
 					            pst4.execute();
 							}
+					}
 				}
 				catch (SQLException ex){
 					System.out.println ("SQLException: " + ex.getMessage());

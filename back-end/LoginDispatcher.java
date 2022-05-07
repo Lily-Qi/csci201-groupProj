@@ -35,14 +35,14 @@ public class LoginDispatcher extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
 		String sql = "SELECT * FROM users WHERE email="+""
 				+ "'"+email+"'";
 
 		if (email.contentEquals("")||psw.contentEquals("")){
-			request.setAttribute("error", error);
+			request.setAttribute("loginError", error);
 			request.getRequestDispatcher("auth.jsp").include(request, response);
 		}
 		else {
@@ -72,7 +72,7 @@ public class LoginDispatcher extends HttpServlet {
 						}
 				  }
 				  if(found==0) {
-					    request.setAttribute("error", error);
+					    request.setAttribute("loginError", error);
 						request.getRequestDispatcher("auth.jsp").include(request, response);
 				  }
 				  else {

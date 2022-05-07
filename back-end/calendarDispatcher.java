@@ -13,9 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;  
 import java.util.Calendar;  
 import Util.*;
-@WebServlet("/TodoDispatcher")
+@WebServlet("/calendarDispatcher")
 
-public class TodoDispatcher extends HttpServlet {
+public class calendarDispatcher extends HttpServlet {
 	 @Serial
 	    //private static final long serialVersionUID = 1L;
 	    private static int groupID;
@@ -91,6 +91,7 @@ public class TodoDispatcher extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response.sendRedirect("todoList.jsp?projectid="+groupID);
+			response.sendRedirect("calendar.jsp?projectid="+groupID);
+			
 	    }
 }

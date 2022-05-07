@@ -4,11 +4,12 @@ import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.*;
 
 public class DataParser {
  public static User getUser(int ID) throws SQLException {
   User usr = new User(ID);
-     String db = "jdbc:mysql://localhost:3306/finalproject";
+    String db = Constant.url;
   String user = Constant.DBUserName;
   String pwd = Constant.DBUserName;
         try {
@@ -19,7 +20,6 @@ public class DataParser {
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery(sql);
            if(rs.next()) {
-        	 System.out.println(rs);
 	         usr.setUserName(rs.getString("name"));
 	         usr.setPassword(rs.getString("password"));
 	         usr.setUserEmail(rs.getString("email"));
@@ -47,7 +47,7 @@ public class DataParser {
  
  public static ArrayList<User> getAllUser() throws SQLException{
   ArrayList<User> alluser = new ArrayList<User>();
-     String db = "jdbc:mysql://localhost:3306/finalproject";
+     String db = Constant.url;
   String user = Constant.DBUserName;
   String pwd = Constant.DBUserName;
         try {
@@ -89,7 +89,7 @@ public class DataParser {
  
  public static Project getProject(int ID) throws SQLException {
   Project p = new Project();
-  String db = "jdbc:mysql://localhost:3306/finalproject";
+  String db = Constant.url;
   String user = Constant.DBUserName;
   String pwd = Constant.DBUserName;
         try {
@@ -120,7 +120,7 @@ public class DataParser {
  
  public static TodoList getTodo(int ID) throws SQLException{
 	 TodoList todo = new TodoList();
-	 String db = "jdbc:mysql://localhost:3306/finalproject";
+	 String db = Constant.url;
 	  String user = Constant.DBUserName;
 	  String pwd = Constant.DBUserName;
 	        try {
@@ -148,20 +148,50 @@ public class DataParser {
  }
  
  public static void removeTask(int projectID, String taskName, String DueDate) throws SQLException{
-	 String db = "jdbc:mysql://localhost:3306/finalproject";
+	 String db = Constant.url;
 	  String user = Constant.DBUserName;
 	  String pwd = Constant.DBUserName;
 	        try {
 	            Class.forName("com.mysql.jdbc.Driver");
 	            Connection conn = DriverManager.getConnection(db, user, pwd);
 	            String sql = "DELETE FROM tasks t WHERE t.tasks_groupID = "+projectID + " AND t.taskInfo = '"+taskName+"' AND t.taskDueDate = '"+DueDate+"';";
-	            System.out.println(sql);
 	            Statement s = conn.createStatement();
 	            s.execute(sql);
 	            conn.close();
 	        } catch (ClassNotFoundException e) {
 	            e.printStackTrace();
 	        }
+ }
+ 
+ public JsonObject calenderTask(int groupId) {
+	 Gson gs = new GsonBuilder().create();	 
+	 String db = Constant.url;
+	  String user = Constant.DBUserName;
+	  String pwd = Constant.DBUserName;
+	  TodoList todo = new TodoList();
+	        try {
+	            Class.forName("com.mysql.jdbc.Driver");
+	            Connection conn = DriverManager.getConnection(db, user, pwd);
+	            String sql = "SELECT * FROM tasks t WHERE t.tasks_groupID = "+groupId+";";
+	            Statement s = conn.createStatement();
+	            ResultSet rs = s.executeQuery(sql);
+	            while(rs.next()) {
+		            Task ta = new Task();
+		            ta.setId(rs.getInt("taskID"));
+		            ta.setDueDate(rs.getString("taskDueDate"));
+		            ta.setTaskName(rs.getString("taskInfo"));
+		            todo.addTask(ta);
+	            }
+	            conn.close();
+	        } catch (ClassNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	  JsonElement jsonElement = gs.toJsonTree(todo);
+	  JsonObject jsonObject = (JsonObject) jsonElement;     
+	  return jsonObject;
  }
  
  
