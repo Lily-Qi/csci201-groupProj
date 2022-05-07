@@ -66,8 +66,30 @@ public class GoogleLoginDispatcher extends HttpServlet {
 					}
 
 		if (exist==1) {
-			request.setAttribute("loginError", error);
-			request.getRequestDispatcher("auth.jsp").include(request, response);
+			String sql4 = "SELECT * FROM users WHERE email="+""
+					+ "'"+email+"'";
+			Statement st;
+			try {
+				st = conn.createStatement();
+				ResultSet rs = st.executeQuery(sql4);
+				while(rs.next()) {
+					String userpwd=rs.getString("password");
+					if (userpwd != null) {
+						request.setAttribute("loginError", error);
+						request.getRequestDispatcher("auth.jsp").include(request, response);
+					} else {
+						int userid=rs.getInt("userID");
+						Cookie ck=new Cookie("userid",String.valueOf(userid));
+					    response.addCookie(ck);
+					    response.sendRedirect("index.jsp");
+					    break;
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
 		}
 	    else {
 	    	int userid = 0;

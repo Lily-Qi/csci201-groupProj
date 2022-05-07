@@ -10,8 +10,8 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"> -->
 <link href="http://fonts.cdnfonts.com/css/handjet-2" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/7f10118ced.js" crossorigin="anonymous"></script>
 <%
@@ -29,7 +29,7 @@
 <%@ page import="Util.User"%>
 <%@ page import="Util.Project"%>
 <%@ page import="Util.DataParser"%>
-<%
+<% 			
 			DataParser dp=new DataParser();
 			Cookie cookie = null;
 			User theuser=null;
@@ -50,9 +50,9 @@
 						    projectidList=theuser.getProjId();
 					   		isLogin=true;
 					    }
-
+					    
 				   }
-				  }
+				  } 
 			}%>
 <script>
 
@@ -65,7 +65,7 @@ function add(){
 function removeInput(btn){
     btn.parentNode.remove();
 }
-</script>
+</script>             
 </head>
 <body>
 	<% String er = (String) request.getAttribute("error");
@@ -74,7 +74,7 @@ function removeInput(btn){
 	<% }%>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> -->
-
+	
 	<div class="container-fluid">
     <div class="row flex-nowrap">
     	<!-- sidebar -->
@@ -94,11 +94,11 @@ function removeInput(btn){
                     		out.println("<a href=\"index.jsp\" class=\"nav-link align-middle px-0\"><i class=\"fa-solid fa-right-from-bracket\"></i> <span class=\"ms-1 d-none d-sm-inline\">Logout</span></a>");
                     	}
                     	%>
-
+                        
                     </li>
-
+                    
                 </ul>
-
+                
                 <%
                 if (isLogin) {
                 	out.println("<div class=\"userInfo\"> <table id=\"user\">");
@@ -108,21 +108,21 @@ function removeInput(btn){
                 	out.println("</table></div>");
                 }
                 %>
-
+                
             </div>
         </div>
         <!-- sidebar end -->
-
+        
         <!-- content -->
         <div class="col py-3">
-
+        
 		<form id="groupForm" action="createproject" method="post"> <!-- submit title and description -->
-            <div class = "division">
+            <div class = "division"> 
             	<p class = "title">Create a new project</p>
             	<div class="container infoPart">
             		<div class="row">
             			<div class="col-2"><label class = "info">Title</label></div>
-    					<div class="col-7"><input class = "groupInput" type="text" name="groupTitle" required></div>
+    					<div class="col-7"><input class = "groupInput" type="text" name="groupTitle"></div>
    		 				<div class="col"></div>
             		</div>
             		<div class="row">
@@ -133,7 +133,7 @@ function removeInput(btn){
             		</div>
             		<div class="row">
             			<div class="col-2"><label class = "info">Description</label></div>
-    					<div class="col-7"><textarea name="groupDescription" rows="10" cols="30" id="userText" required></textarea></div>
+    					<div class="col-7"><textarea name="groupDescription" rows="10" cols="30" id="userText"></textarea></div>
    		 				<div class="col"></div>
             		</div>
             		<div class = "row">
@@ -146,7 +146,7 @@ function removeInput(btn){
             </form>
         </div>
         <!-- content end -->
-
+        
       </div>
      </div>
 
