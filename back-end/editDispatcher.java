@@ -77,10 +77,10 @@ public class editDispatcher extends HttpServlet {
     	already = false;
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
-		String sql = "UPDATE projects SET title=?, description=? WHERE groupID=?";
+		String sql = "UPDATE Projects SET title=?, description=? WHERE groupID=?";
 		String sql2 = "SELECT COUNT(email) AS total FROM users WHERE email=?";
 		String sql3="SELECT userID FROM users WHERE email=?";
 		try {

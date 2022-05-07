@@ -45,7 +45,7 @@ public class deleteproject extends HttpServlet {
     		} 
     	}
     	Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
 		String sql = "DELETE FROM projects where groupID=?";

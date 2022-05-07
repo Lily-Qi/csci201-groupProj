@@ -34,7 +34,7 @@ public class GoogleLoginDispatcher extends HttpServlet {
 		psw = request.getParameter("password");
 		int exist=0;
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
       	String pwd = Constant.DBPassword;
 		String sql = "INSERT INTO users (name, password, email) VALUES (?, ?, ?)";

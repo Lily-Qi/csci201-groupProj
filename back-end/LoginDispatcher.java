@@ -35,7 +35,7 @@ public class LoginDispatcher extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
 		String sql = "SELECT * FROM users WHERE email="+""

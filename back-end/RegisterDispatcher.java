@@ -18,7 +18,6 @@ import java.io.Serial;
 public class RegisterDispatcher extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
-    private static final String url = "jdbc:mysql://localhost:3306/PA4Users";
     private static String email;
     private static String usrname;
     private static String psw;
@@ -58,7 +57,7 @@ public class RegisterDispatcher extends HttpServlet {
         // TODO Auto-generated method stub
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
       	String pwd = Constant.DBPassword;
 		String sql = "INSERT INTO users (name, password, email) VALUES (?, ?, ?)";

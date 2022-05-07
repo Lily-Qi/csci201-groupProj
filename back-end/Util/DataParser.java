@@ -9,7 +9,7 @@ import com.google.gson.*;
 public class DataParser {
  public static User getUser(int ID) throws SQLException {
   User usr = new User(ID);
-    String db = "jdbc:mysql://localhost:3306/finalproject";
+    String db = Constant.url;
   String user = Constant.DBUserName;
   String pwd = Constant.DBUserName;
         try {
@@ -47,7 +47,7 @@ public class DataParser {
  
  public static ArrayList<User> getAllUser() throws SQLException{
   ArrayList<User> alluser = new ArrayList<User>();
-     String db = "jdbc:mysql://localhost:3306/finalproject";
+     String db = Constant.url;
   String user = Constant.DBUserName;
   String pwd = Constant.DBUserName;
         try {
@@ -89,7 +89,7 @@ public class DataParser {
  
  public static Project getProject(int ID) throws SQLException {
   Project p = new Project();
-  String db = "jdbc:mysql://localhost:3306/finalproject";
+  String db = Constant.url;
   String user = Constant.DBUserName;
   String pwd = Constant.DBUserName;
         try {
@@ -120,7 +120,7 @@ public class DataParser {
  
  public static TodoList getTodo(int ID) throws SQLException{
 	 TodoList todo = new TodoList();
-	 String db = "jdbc:mysql://localhost:3306/finalproject";
+	 String db = Constant.url;
 	  String user = Constant.DBUserName;
 	  String pwd = Constant.DBUserName;
 	        try {
@@ -148,7 +148,7 @@ public class DataParser {
  }
  
  public static void removeTask(int projectID, String taskName, String DueDate) throws SQLException{
-	 String db = "jdbc:mysql://localhost:3306/finalproject";
+	 String db = Constant.url;
 	  String user = Constant.DBUserName;
 	  String pwd = Constant.DBUserName;
 	        try {
@@ -163,16 +163,16 @@ public class DataParser {
 	        }
  }
  
- public JsonObject calenderTask(int userId) {
+ public JsonObject calenderTask(int groupId) {
 	 Gson gs = new GsonBuilder().create();	 
-	 String db = "jdbc:mysql://localhost:3306/finalproject";
+	 String db = Constant.url;
 	  String user = Constant.DBUserName;
 	  String pwd = Constant.DBUserName;
 	  TodoList todo = new TodoList();
 	        try {
 	            Class.forName("com.mysql.jdbc.Driver");
 	            Connection conn = DriverManager.getConnection(db, user, pwd);
-	            String sql = "SELECT * FROM tasks t, users_has_groups ug WHERE t.tasks_groupID = ug.groups_groupID AND ug.users_userID = "+userId+";";
+	            String sql = "SELECT * FROM tasks t WHERE t.tasks_groupID = "+groupId+";";
 	            Statement s = conn.createStatement();
 	            ResultSet rs = s.executeQuery(sql);
 	            while(rs.next()) {

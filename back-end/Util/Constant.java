@@ -7,7 +7,8 @@ public class Constant {
     static public String DBUserName = "root";
     static public String DBPassword = "root";
     private static String FileName = "restaurant_data.json";
-
+    static public String url = "jdbc:mysql://34.102.22.221:3306/finalproject";
+    
     static public Pattern namePattern = Pattern.compile("^[ A-Za-z]+$");
     static public Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\."
             + "[a-zA-Z0-9_+&*-]+)*@"

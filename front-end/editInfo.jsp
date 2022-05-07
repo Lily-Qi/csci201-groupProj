@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
+<%@ page import="Util.User"%>
+<%@ page import="Util.Project"%>
+<%@ page import="Util.DataParser"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,17 +17,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/7f10118ced.js" crossorigin="anonymous"></script>
-<%@ page import="Util.User"%>
-<%@ page import="Util.Project"%>
-<%@ page import="Util.DataParser"%>
+
 <%
 	ArrayList<String> userEmailList = new ArrayList<String>();
+	userEmailList.add("trojan@usc.edu");
+	userEmailList.add("test@test.com");
 	DataParser dp=new DataParser();
 	Project p;
 	Boolean isLogin = false;
-	String groupTitle = "CSCI201";
+	String groupTitle = "";
 	String memberListString = "";
-	String description = "This project will be a web-based group project management system similar to those used in the software industry. Users can create groups and add group members to their projects. They can also use build-in to-do list and calendar to manage a group project.";
+	String description = "";
 	String aid;
 	int projectid=1;
     
@@ -81,7 +84,7 @@ function removeInput(btn){
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id = "sidebar">
             <div class="d-flex flex-column align-items-center pt-2 text-white min-vh-100" id="sidebarContent">
             	<div class="sidebar-header">
-                <a href="index.jsp" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="exitproject" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="d-none d-sm-inline">PM SYSTEM</span>
                 </a>
                 </div>
@@ -96,11 +99,11 @@ function removeInput(btn){
                             <i class="fa-solid fa-calendar"></i> <span class="ms-1 d-none d-sm-inline">Calendar</span></a>
                     </li>
                     <li>
-                        <a href="todoList.jsp" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                        <a href="todoList.jsp" data-bs-toggle="nav-link px-0 align-middle" class="nav-link px-0 align-middle ">
                             <i class="fa-solid fa-list"></i> <span class="ms-1 d-none d-sm-inline">To-do List</span></a>
                     </li>
                     <li>
-                        <a href="index.jsp" class="nav-link px-0 align-middle">
+                        <a href="LogoutDispatcher" class="nav-link px-0 align-middle">
                             <i class="fa-solid fa-right-from-bracket"></i> <span class="ms-1 d-none d-sm-inline">Logout</span> </a>
                     </li>
                 </ul>
@@ -136,7 +139,14 @@ function removeInput(btn){
             		<div class="row">
             		<!-- get multiple input with the same name: https://stackoverflow.com/a/41508004 -->
             			<div class="col-2"><label class = "info">Member</label></div>
-            			<div class="col-7" id = "addMember"><p><%=memberListString %></p></div>
+            			<div class="col-7" id = "addMember">
+            				<%
+            				for (int i = 0; i< members.size(); i++) {
+            					out.println("<div id=\"emailInput\"><p>"
+            							+ members.get(i) + "</p></div>");
+            				}
+            				%>
+            			</div>
             			<div class="col"><input type="button" onclick="add()" id="addMemberBtn" value = "+"></div>
             		</div>
             		<div class="row">
@@ -150,7 +160,7 @@ function removeInput(btn){
             		<div class="col"></div>
             		<div class="col"><button id = "editBtn" type = "submit"> Save </button></div>
             		<div class="col"></div>
-            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'deleteproject'"> Quit </button></div>
+            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'deleteproject'"> Delete this group </button></div>
             		
             		</div>
             	

@@ -95,10 +95,10 @@ public class createproject extends HttpServlet {
     	num=0;
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
-		String sql = "INSERT INTO projects (title, description) VALUES (?, ?)";
+		String sql = "INSERT INTO Projects (title, description) VALUES (?, ?)";
 		//String sql4 = "INSERT INTO users_has_groups (users_userID, groups_groupID) VALUES (?, ?)";
 		String sql2 = "SELECT COUNT(email) AS total FROM users WHERE email=?";
 		String sql3="SELECT userID FROM users WHERE email=?";
@@ -148,7 +148,7 @@ public class createproject extends HttpServlet {
 	    			thesql.setString(2, descript);
 	    			thesql.execute();
 						st = conn.createStatement();
-			            String myStatement = "select groupID from projects where title='"+title+"' AND description='"+descript+"';";
+			            String myStatement = "select groupID from Projects where title='"+title+"' AND description='"+descript+"';";
 			            ResultSet rs = st.executeQuery(myStatement);
 		            while(rs.next()){
 		                num = (rs.getInt("groupID"));
