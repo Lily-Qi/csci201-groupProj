@@ -13,36 +13,24 @@ function sleep(ms) {
 }
 
 function retrieveData(id){
-	//alert(id);
-
-}
-
-function sendData(id){
-    var pseudo_csv_string = "";
-    var realID = id.substring(1);
-    var ul = document.getElementById(realID);
-    var items = ul.getElementsByTagName("li");
-    for(var i = 0; i < items.length; i++){
-        if(i == (items.length - 1)){
-            pseudo_csv_string += items[i].innerHTML;
-        }
-        else{
-            pseudo_csv_string += items[i].innerHTML;
-            pseudo_csv_string += ", ";
-        }
-    }
-    console.log(pseudo_csv_string);
-    $.ajax({
-        url: "temp", //put servlet right here
-        data: {
-            isFromAjax: "1", //in servlet String isAjax = request.getParameter("isFromAjax");
-            taskList: pseudo_csv_string, // in servlet String taskList = request.getParameter("taskList");
-            taskDate: realID
-        },
+	$.ajax({
+        url: "calendarDispatcher?user="+id, //put servlet right here
+        type:"GET",
         success: function(returnValue) {
             console.log(returnValue);
+            //parseJSON(returnValue);
         }      
     })
+}
+
+function parseJSON(x){
+	let resultsJS = x; //get JSON object
+	for(let i = 0; i < resultsJS.length; i++){
+		let task = resultsJS[i];
+		let taskName = task.taskName;
+		let taskDate = task.taskDate;
+		addPastTask(taskName, taskDate);
+	}
 }
 
 function origin(){
@@ -54,6 +42,7 @@ function origin(){
     NCyear = date.getFullYear();
     curr_day = date.getDate();
     num_of_days = getNumOfDays();
+    retrieveData(467);
     reloadCal();
 }
 
