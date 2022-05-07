@@ -61,7 +61,17 @@ public class calendarDispatcher extends HttpServlet {
 				} 
 			}
 			groupID=projectid;
-			String db = "jdbc:mysql://localhost:3306/finalproject";
+	    }
+
+	    /**
+	     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	     * response)
+	     */
+	    @Override
+	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+	        doGet(request, response);
+	        String db = Constant.url;
 	        String user = Constant.DBUserName;
 			String pwd = Constant.DBPassword;
 			String sql = "INSERT INTO tasks (tasks_groupID, taskInfo, taskDueDate) VALUES (?, ?, ?)";
@@ -82,16 +92,6 @@ public class calendarDispatcher extends HttpServlet {
 				e.printStackTrace();
 			}
 			response.sendRedirect("calendar.jsp?projectid="+groupID);
-	    }
-
-	    /**
-	     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	     * response)
-	     */
-	    @Override
-	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-	        doGet(request, response);
-	        
+			
 	    }
 }

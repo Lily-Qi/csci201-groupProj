@@ -42,6 +42,16 @@
 			    aid=cookie.getValue();
 			    projectid=Integer.valueOf(aid);
 		   }
+		   if(cookie.getName().equals("userid")){
+			    userid=cookie.getValue();
+			    theuser= dp.getUser(Integer.valueOf(userid));
+			    if(theuser!=null){
+			    	email=theuser.getUseremail();
+				    username=theuser.getUsername();
+			   		isLogin=true;
+			    }
+			    
+		   }
 		 
 		} 
 	}
@@ -77,7 +87,7 @@ function closeForm() {
                 </div>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="groupInfo.jsp" class="nav-link align-middle px-0" id="selectedBtn">
+                        <a href="groupInfo.jsp" class="nav-link align-middle px-0" >
                            <i class="fa-solid fa-circle-info"></i> <span class="ms-1 d-none d-sm-inline">Group Info</span>
                         </a>
                     </li>
@@ -86,7 +96,7 @@ function closeForm() {
                             <i class="fa-solid fa-calendar"></i> <span class="ms-1 d-none d-sm-inline">Calendar</span></a>
                     </li>
                     <li>
-                        <a href="todoList.jsp" data-bs-toggle="nav-link px-0 align-middle" class="nav-link px-0 align-middle ">
+                        <a href="todoList.jsp" class="nav-link px-0 align-middle " id="selectedBtn">
                             <i class="fa-solid fa-list"></i> <span class="ms-1 d-none d-sm-inline">To-do List</span></a>
                     </li>
                     <li>
@@ -99,12 +109,11 @@ function closeForm() {
                 if (isLogin) {
                 	out.println("<div class=\"userInfo\"> <table id=\"user\">");
                 	out.println("<tr><th id=\"icon\"><i class=\"fa-solid fa-user\"></i></th></tr>");
-                	out.println("<tr><th id=\"name\">Tommy Trojan</th></tr>");
-                	out.println("<tr><th id = \"email\">trojan@usc.edu</th></tr>");
+                	out.println("<tr><th id=\"name\">"+username+"</th></tr>");
+                	out.println("<tr><th id = \"email\">"+email+"</th></tr>");
                 	out.println("</table></div>");
-                	
                 }
-                %>
+                %>  
                 
             </div>
         </div>

@@ -24,19 +24,18 @@ public class GoogleLoginDispatcher extends HttpServlet {
     private static String email;
     private static String name;
     private static String psw;
+    private static String error = "Can't do Google login with a registered email.";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-        
+
         email = request.getParameter("email");
 		name = request.getParameter("name");
-		System.out.println("new version" + name);
-		System.out.println("new version" + email);
 		psw = request.getParameter("password");
 		int exist=0;
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
       	String pwd = Constant.DBPassword;
 		String sql = "INSERT INTO users (name, password, email) VALUES (?, ?, ?)";
@@ -65,24 +64,10 @@ public class GoogleLoginDispatcher extends HttpServlet {
 				}catch (SQLException ex){
 					System.out.println ("SQLException: " + ex.getMessage());
 					}
-		Helper ahelper=new Helper();
+
 		if (exist==1) {
-			String sql4 = "SELECT * FROM users WHERE email="+""
-					+ "'"+email+"'";
-			Statement st;
-			try {
-				st = conn.createStatement();
-				ResultSet rs = st.executeQuery(sql4);
-				while(rs.next()) {
-					int userid=rs.getInt("userID");
-					Cookie ck=new Cookie("userid",String.valueOf(userid));
-				    response.addCookie(ck);
-				    break;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			response.sendRedirect("index.jsp");
+			request.setAttribute("loginError", error);
+			request.getRequestDispatcher("auth.jsp").include(request, response);
 		}
 	    else {
 	    	int userid = 0;

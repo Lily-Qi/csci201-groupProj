@@ -71,10 +71,12 @@ public class removeTodoDispatcher extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
         if(tasks!=null) {
+        	
 	        try {
 	        	for(String s: tasks) {
-	        		String[] task = s.split(" ");
-	        		String taskName = task[0];
+	        		String[] task = s.split(",,., ");
+	        		System.out.println(task);
+	        		String taskName = task[0];	        		
 	        	    String DueDate = task[1]; 
 	        		DataParser.removeTask(groupID, taskName, DueDate);
 	        	}

@@ -17,7 +17,7 @@ body {
 }
 
 #sidebar .sidebar-header .d-flex {
-	
+
 	justify-content: center;
 }
 
@@ -102,7 +102,7 @@ body {
 	height:50%;
 	border-bottom: 2px solid #1C658C;
 	padding-bottom: 16px;
-	
+
 }
 .bottom {
 	bottom: 0;
@@ -131,6 +131,8 @@ font-size: 30px;
 line-height: 58px;
 color: #5584AC;
 }
+
+
 
 #emailInput {
 	padding-bottom:20px;
@@ -162,7 +164,7 @@ color: #5584AC;
 	width:100%;
 	border: 1px solid #398AB9;
 	border-radius: 4px;
-	
+
 }
 
 .top button {

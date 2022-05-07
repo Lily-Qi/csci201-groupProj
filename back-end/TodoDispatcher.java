@@ -71,7 +71,7 @@ public class TodoDispatcher extends HttpServlet {
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
 	        doGet(request, response);
-	        String db = "jdbc:mysql://localhost:3306/finalproject";
+	        String db = Constant.url;
 	        String user = Constant.DBUserName;
 			String pwd = Constant.DBPassword;
 			String sql = "INSERT INTO tasks (tasks_groupID, taskInfo, taskDueDate) VALUES (?, ?, ?)";

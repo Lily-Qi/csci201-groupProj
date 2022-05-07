@@ -44,7 +44,7 @@
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id = "sidebar">
             <div class="d-flex flex-column align-items-center pt-2 text-white min-vh-100" id="sidebarContent">
             	<div class="sidebar-header">
-                <a href="index.jsp" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="exitproject" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="d-none d-sm-inline">PM SYSTEM</span>
                 </a>
                 </div>
@@ -158,7 +158,7 @@
             			</div>
             			<div class = "col">
             			<div id="gSignInWrapper">
-    					<div id="customBtn" class="customGPlusSignIn"> <i class="fa-brands fa-google"></i> Sign in with Google</div>
+    					<div id="googleLogin" class="customGPlusSignIn"> <i class="fa-brands fa-google"></i> Sign in with Google</div>
     					</div>
     					<div id="name"></div>
     					
@@ -166,9 +166,6 @@
             			<div class = "col">
             			<button type="submit" class = "accountButton"> <i class="fa-solid fa-user-plus"></i> Sign in </button>
             			</div>
-            			<div class = "button">
-            			<button type="button" class = "accountButton" id = "googleLogin">sign in with firebase </button>
-            			</div>   
             		</div>
             		
             	</div>	

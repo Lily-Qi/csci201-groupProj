@@ -43,11 +43,14 @@
 				   if(cookie.getName().equals("userid")){
 					    userid=cookie.getValue();
 					    theuser= dp.getUser(Integer.valueOf(userid));
-					    email=theuser.getUseremail();
-					    username=theuser.getUsername();
-					    projectList=theuser.getProjects();
-					    projectidList=theuser.getProjId();
-				   		isLogin=true;
+					    if(theuser!=null){
+					    	email=theuser.getUseremail();
+						    username=theuser.getUsername();
+						    projectList=theuser.getProjects();
+						    projectidList=theuser.getProjId();
+					   		isLogin=true;
+					    }
+					    
 				   }
 				  } 
 			}%>             
@@ -63,7 +66,7 @@
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id = "sidebar">
             <div class="d-flex flex-column align-items-center pt-2 text-white min-vh-100" id="sidebarContent">
             	<div class="sidebar-header">
-                <a href="index.jsp" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="exitproject" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="d-none d-sm-inline">PM SYSTEM</span>
                 </a>
                 </div>

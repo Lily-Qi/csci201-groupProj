@@ -44,12 +44,11 @@ public class deleteproject extends HttpServlet {
     		 
     		} 
     	}
-    	System.out.println("projectid: "+ projectid);
     	Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
-		String sql = "DELETE FROM projects where groupID=?";
+		String sql = "DELETE FROM Projects where groupID=?";
 		String sql2 = "DELETE FROM users_has_groups where groups_groupID = ?";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

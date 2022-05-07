@@ -6,11 +6,14 @@ var num_of_days;
 var NCmonth;
 var NCyear;
 
+
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function retrieveData(){
+function retrieveData(id){
+	//alert(id);
 
 }
 
@@ -68,7 +71,15 @@ function addTask(name, dat) {
     var id_str = "#" + dat;
     $(id_str).append(curr_li);
     //sendData(id_str);
-    window.location.href="TodoDispatcher?taskName="+name+"&taskDueDate="+dat;
+    window.location.href="calendarDispatcher?taskName="+name+"&taskDueDate="+dat;
+}
+
+function addPastTask(name, dat) {
+	var curr_li = $("<li></li>");
+    curr_li.addClass("event");
+    curr_li.text(name);
+    var id_str = "#" + dat;
+    $(id_str).append(curr_li);
 }
 
 function reloadCal(){

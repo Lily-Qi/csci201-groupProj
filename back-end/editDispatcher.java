@@ -77,10 +77,10 @@ public class editDispatcher extends HttpServlet {
     	already = false;
         doGet(request, response);
         Connection conn = null;
-        String db = "jdbc:mysql://localhost:3306/finalproject";
+        String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
-		String sql = "UPDATE projects SET title=?, description=? WHERE groupID=?";
+		String sql = "UPDATE Projects SET title=?, description=? WHERE groupID=?";
 		String sql2 = "SELECT COUNT(email) AS total FROM users WHERE email=?";
 		String sql3="SELECT userID FROM users WHERE email=?";
 		try {
@@ -128,8 +128,12 @@ public class editDispatcher extends HttpServlet {
 				try (PreparedStatement thesql = conn.prepareStatement(sql);PreparedStatement pst3 = conn.prepareStatement(sql3);) {
 					Statement st;
 					st = conn.createStatement();
+					String repeat_mem = "";
 					for(int i=0;i<members.length;i++) {
 						String email=members[i];
+						if(!repeat_mem.contains(email)) {
+							repeat_mem+=email;
+							repeat_mem+= ",";
 								pst3.setString(1, email);
 								ResultSet rs2 = pst3.executeQuery();
 								rs2.next();
@@ -139,6 +143,7 @@ public class editDispatcher extends HttpServlet {
 					            PreparedStatement pst4 = conn.prepareStatement(sql4);
 					            pst4.execute();
 							}
+					}
 				}
 				catch (SQLException ex){
 					System.out.println ("SQLException: " + ex.getMessage());

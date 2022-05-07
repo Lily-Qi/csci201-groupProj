@@ -34,6 +34,23 @@ public class LogoutDispatcher extends HttpServlet {
     	            cookie.setMaxAge(0);
     	            response.addCookie(cookie);
     	         }
+    	         if((cookie.getName( )).compareTo("projectid") == 0 ){
+    	            cookie.setMaxAge(0);
+    	            response.addCookie(cookie);
+    	         }
+    	         //for test
+    	         if((cookie.getName( )).compareTo("projecttitle") == 0 ){
+     	            cookie.setMaxAge(0);
+     	            response.addCookie(cookie);
+     	         }
+    	         if((cookie.getName( )).compareTo("projectmember") == 0 ){
+     	            cookie.setMaxAge(0);
+     	            response.addCookie(cookie);
+     	         }
+    	         if((cookie.getName( )).compareTo("projectdescription") == 0 ){
+      	            cookie.setMaxAge(0);
+      	            response.addCookie(cookie);
+      	         }
     	      }
     	   }
     		response.sendRedirect("index.jsp");

@@ -35,12 +35,23 @@
 	int cookieexist=0;
 	String userid="";
 	if (cookies != null) {
+		System.out.println("new cookie array: " + cookies.length);
 	for (int i = 0; i < cookies.length; i++) {
 		   cookie = cookies[i];
-		   
+		   System.out.println(cookie.getName());
 		   if(cookie.getName().equals("projectid")){
 			    aid=cookie.getValue();
 			    projectid=Integer.valueOf(aid);
+		   }
+		   if(cookie.getName().equals("userid")){
+			    userid=cookie.getValue();
+			    theuser= dp.getUser(Integer.valueOf(userid));
+			    if(theuser!=null){
+			    	email=theuser.getUseremail();
+				    username=theuser.getUsername();
+			   		isLogin=true;
+			    }
+			    
 		   }
 		 
 		} 
@@ -99,18 +110,17 @@ function closeForm() {
                 if (isLogin) {
                 	out.println("<div class=\"userInfo\"> <table id=\"user\">");
                 	out.println("<tr><th id=\"icon\"><i class=\"fa-solid fa-user\"></i></th></tr>");
-                	out.println("<tr><th id=\"name\">Tommy Trojan</th></tr>");
-                	out.println("<tr><th id = \"email\">trojan@usc.edu</th></tr>");
+                	out.println("<tr><th id=\"name\">"+username+"</th></tr>");
+                	out.println("<tr><th id = \"email\">"+email+"</th></tr>");
                 	out.println("</table></div>");
-                	
                 }
-                %>
+                %> 
                 
             </div>
         </div>
         <!-- sidebar end -->
         
-        <!-- content -->
+       <!-- content -->
         <div class="col py-3">
         
 		
@@ -125,7 +135,7 @@ function closeForm() {
             		else {
             			for (int i = 0; i<taskList.getTodoList().size(); i++) {
             				out.println("<div class=\"form-check\">");
-            				out.println("<input class=\"form-check-input\" type=\"checkbox\" name=\"deletedTask\" id=\"flexCheckDefault\" value=\"" + taskList.getTodoList().get(i).getTaskName() + " "+ taskList.getTodoList().get(i).getTaskDueDate() + "\">" );
+            				out.println("<input class=\"form-check-input\" type=\"checkbox\" name=\"deletedTask\" id=\"flexCheckDefault\" value=\"" + taskList.getTodoList().get(i).getTaskName() + ",,., "+ taskList.getTodoList().get(i).getTaskDueDate() + "\">" );
             				out.println("<label class=\"form-check-label\" for=\"flexCheckDefault\">" + taskList.getTodoList().get(i).getTaskName() + " "+ taskList.getTodoList().get(i).getTaskDueDate()+ "</label></div>");
             			}
             		}

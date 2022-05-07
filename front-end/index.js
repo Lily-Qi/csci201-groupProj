@@ -30,9 +30,9 @@ googleLogin.addEventListener('click',(e) => {
     // The signed-in user info.
     const user = result.user;
     alert(user.displayName);
-    const email = result.email;
+    const email = user.email;
     const name = user.displayName;
-	window.location.href="GoogleDispatcher?email="+email+"&name="+name;    // ...
+	window.location.href="GoogleLoginDispatcher?email="+email+"&name="+name;    // ...
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
