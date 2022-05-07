@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="javax.script.*" %>
+<%@ page import = "java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,14 +30,64 @@
       src="https://kit.fontawesome.com/7f10118ced.js"
       crossorigin="anonymous"
     ></script>
+<%@ page import="Util.User"%>
+<%@ page import="Util.Project"%>
+<%@ page import="Util.DataParser"%>
+<%@ page import="Util.TodoList"%>
+<%@ page import="Util.Task"%>
+
+<%
+	DataParser dp=new DataParser();
+	Project p;
+	Boolean isLogin = false;
+	User theuser=null;
+	String username="";
+	String email="";
+	String aid;
+	int projectid=1;
+    
+	Cookie cookie = null;
+	Cookie[] cookies = null;
+	cookies = request.getCookies();
+	int cookieexist=0;
+	String userid="";
+	if (cookies != null) {
+	for (int i = 0; i < cookies.length; i++) {
+		   cookie = cookies[i];
+		   
+		   if(cookie.getName().equals("projectid")){
+			    aid=cookie.getValue();
+			    projectid=Integer.valueOf(aid);
+		   }
+		   if(cookie.getName().equals("userid")){
+			    userid=cookie.getValue();
+			    theuser= dp.getUser(Integer.valueOf(userid));
+			    if(theuser!=null){
+			    	email=theuser.getUseremail();
+				    username=theuser.getUsername();
+			   		isLogin=true;
+			    }
+			    
+		   }
+		 
+		} 
+	}
+	p=dp.getProject(projectid);
+	System.out.println(p);
+	
+	TodoList taskList = new TodoList();
+	taskList = dp.getTodo(projectid);
+	
+%>
+
   </head>
-  <body>
+  <body onload = "retrieveData()">
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-
+            
     <div class="container-fluid">
       <div class="row flex-nowrap">
         <!-- sidebar -->
@@ -44,7 +98,7 @@
           >
             <div class="sidebar-header">
               <a
-                href="index.jsp"
+                href="exitproject"
                 class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
               >
                 <span class="d-none d-sm-inline">PM SYSTEM</span>
@@ -68,9 +122,7 @@
               </li>
               <li>
                 <a
-                  href="todoList.jsp"
-                  data-bs-toggle="collapse"
-                  class="nav-link px-0 align-middle"
+                  href="todoList.jsp" class="nav-link px-0 align-middle"
                 >
                   <i class="fa-solid fa-list"></i>
                   <span class="ms-1 d-none d-sm-inline">To-do List</span></a
@@ -84,26 +136,22 @@
               </li>
             </ul>
             <hr />
-            <div class="userInfo">
-              <table id="user">
-                <tr>
-                  <th id="icon"><i class="fa-solid fa-user"></i></th>
-                </tr>
-                <tr>
-                  <th id="name">Tommy Trojan</th>
-                </tr>
-                <tr>
-                  <th id="email">trojan@usc.edu</th>
-                </tr>
-              </table>
-            </div>
+            <%
+                if (isLogin) {
+                	out.println("<div class=\"userInfo\"> <table id=\"user\">");
+                	out.println("<tr><th id=\"icon\"><i class=\"fa-solid fa-user\"></i></th></tr>");
+                	out.println("<tr><th id=\"name\">"+username+"</th></tr>");
+                	out.println("<tr><th id = \"email\">"+email+"</th></tr>");
+                	out.println("</table></div>");
+                }
+                %>   
           </div>
         </div>
         <!-- sidebar end -->
 
         <!-- content -->
-        <div class="col py-3">
-          <h3>Calendar</h3>
+        <div class="col py-3 division">
+          <p class = "title">Calendar</p>
           <div class="container">
             <div class="calendar-tools row">
               <div class="col">
@@ -116,7 +164,7 @@
                 </button>
               </div>
               <div class="col-2">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modalform">Add Task</button>
+                <button type="button" class="btn btn-primary calendarButton" data-bs-toggle="modal" data-bs-target="#Modalform">Add Task</button>
                 <div class="modal fade" id="Modalform" tabindex="-1" aria-labelledby="ModalformLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -128,11 +176,11 @@
                         <form>
                           <div class="mb-3">
                             <label for="task-title" class="col-form-label">Title:</label>
-                            <input type="text" class="form-control" id="task-title">
+                            <input type="text" class="form-control" id="task-title" required>
                           </div>
                           <div class="mb-3">
                             <label for="task-date" class="col-form-label">Date:</label>
-                            <input type="date" class="form-control" id="task-date">
+                            <input type="date" class="form-control" id="task-date" required>
                           </div>
                         </form>
                       </div>
@@ -165,11 +213,14 @@
         </div>
         <!-- content end -->
     </div>
+    </div>
+
     <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"
     ></script>
     <script src="calendar.js"></script>
+    <script type="text/javascript">retrieveData('<%=p%>')</script>
   </body>
 </html>

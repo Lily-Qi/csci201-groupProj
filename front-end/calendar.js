@@ -6,45 +6,43 @@ var num_of_days;
 var NCmonth;
 var NCyear;
 
-var mainmap = new Map(); 
-
-//let username = document.username; //username should be cookie
-
-/*
-Let's a make a cookie on auth.jsp (which we will remove at logout) to allow calendar.js
-to read that cookie. Once we read that cookie we can make a ajax request to the user data servlet
-parser which should return a string of all their tasks (JSON would be best). Afterward i can 
-add code that will parse it correctly and add it to the correct dates during calendar generation
-*/
 
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function retrieveData(){
-    $.ajax({
-        url:"", //servlet to get a users tasks
-        data: {
-            isFromAjax: "1",
-            userID: username
-        },
-        success: function(results){
-            parseJSON(results);
+function retrieveData(id){
+	//alert(id);
+
+}
+
+function sendData(id){
+    var pseudo_csv_string = "";
+    var realID = id.substring(1);
+    var ul = document.getElementById(realID);
+    var items = ul.getElementsByTagName("li");
+    for(var i = 0; i < items.length; i++){
+        if(i == (items.length - 1)){
+            pseudo_csv_string += items[i].innerHTML;
         }
+        else{
+            pseudo_csv_string += items[i].innerHTML;
+            pseudo_csv_string += ", ";
+        }
+    }
+    console.log(pseudo_csv_string);
+    $.ajax({
+        url: "temp", //put servlet right here
+        data: {
+            isFromAjax: "1", //in servlet String isAjax = request.getParameter("isFromAjax");
+            taskList: pseudo_csv_string, // in servlet String taskList = request.getParameter("taskList");
+            taskDate: realID
+        },
+        success: function(returnValue) {
+            console.log(returnValue);
+        }      
     })
-}
-
-function parseJSON(resultsString){
-    let resultsJS = resultsString;
-    ///for loop of size of task dictionary
-    //if taskDueDate key does not exist in mainmap
-    //add it to main map
-    //make key taskDueDate for mainmap and its value is an array of the task names
-}
-
-function sendData(name, dat){
-    window.location.href="TodoDispatcher?taskName=" + name + "&taskDueDate=" + dat;
 }
 
 function origin(){
@@ -56,8 +54,6 @@ function origin(){
     NCyear = date.getFullYear();
     curr_day = date.getDate();
     num_of_days = getNumOfDays();
-    //retrieveData();
-    //console.log(retrieved);
     reloadCal();
 }
 
@@ -74,7 +70,16 @@ function addTask(name, dat) {
     //push to ul
     var id_str = "#" + dat;
     $(id_str).append(curr_li);
-    sendData(name, dat);
+    //sendData(id_str);
+    window.location.href="calendarDispatcher?taskName="+name+"&taskDueDate="+dat;
+}
+
+function addPastTask(name, dat) {
+	var curr_li = $("<li></li>");
+    curr_li.addClass("event");
+    curr_li.text(name);
+    var id_str = "#" + dat;
+    $(id_str).append(curr_li);
 }
 
 function reloadCal(){

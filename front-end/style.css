@@ -17,7 +17,7 @@ body {
 }
 
 #sidebar .sidebar-header .d-flex {
-	
+
 	justify-content: center;
 }
 
@@ -94,19 +94,35 @@ body {
 }
 
 .division {
-	height:50%;
 	padding-left:16px;
 }
 
 .top {
 	top: 0;
+	height:50%;
 	border-bottom: 2px solid #1C658C;
 	padding-bottom: 16px;
-	
+
 }
 .bottom {
 	bottom: 0;
+	height:50%;
 	padding-top: 16px;
+}
+
+.infoPart {
+	width: 800px;
+	height: 600px;
+	margin-left:0px;
+}
+
+.infoPart .groupInput {
+	width: 100%;
+	border: 1px solid #398AB9;
+	border-radius: 4px;
+}
+.infoPart .row {
+	padding-bottom: 20px;
 }
 
 .division .title {
@@ -114,6 +130,41 @@ body {
 font-size: 30px;
 line-height: 58px;
 color: #5584AC;
+}
+
+
+
+#emailInput {
+	padding-bottom:20px;
+}
+
+#addMemberBtn {
+	color: white;
+	background: #398AB9;
+	border-radius: 10px;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	border: none;
+	text-align: center;
+}
+
+#createButton {
+	height: 40px;
+	width: 100%;
+	color: white;
+	background: #398AB9;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.division textarea {
+	width:100%;
+	border: 1px solid #398AB9;
+	border-radius: 4px;
+
 }
 
 .top button {
@@ -189,4 +240,107 @@ color: #1C658C;
 
 .bottom .col {
 	padding: 20px;
+}
+
+.memberInput {
+	width: 90%;
+	border: 1px solid #398AB9;
+	border-radius: 4px;
+	margin-right:8px;
+}
+
+#minusBtn {
+	border: none;
+	width:6%;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 5px;
+	background: #B94839;
+	color: white;
+}
+.twoButtons button {
+	height: 40px;
+	width: 400px;
+	color: white;
+	background: #398AB9;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+#quitBtn {
+	background: #B94839;
+}
+
+.twoButtons .col {
+	padding: 10px;
+}
+
+#groupTask {
+	color: #1C658C;
+	font-size: 25px;
+}
+
+.form-check-input {
+	border: 1px solid #1C658C;
+	top:50%;
+	font-size: 25px;
+}
+
+.form-check-label {
+	color: #1C658C;
+	font-size: 25px;
+}
+
+.form-popup {
+  display: none;
+  position: fixed;
+  top:0px;
+  left:50%;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+.form-popup p{
+	font-size: 25px;
+	font-weight: 600;
+	color: #1C658C;
+	left:50%
+}
+
+.form-popup label {
+	font-size: 20px;
+	font-weight: 400;
+	color: #1C658C;
+}
+
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+  background: #1C658C;
+}
+
+.form-container .cancel {
+	background: #B94839;
 }

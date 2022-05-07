@@ -9,37 +9,66 @@ html,body
 .month{
     border: 1px solid;
 }
-table, th, td {
-    border: 1px solid;
+.month table {
+    border: 1px solid black; 
 }
+
+.month th {
+    border: 1px solid black;
+    padding: 50px;
+}
+
+.month tr {
+	border: 1px solid black;
+}
+
+.month td {
+	border: 1px solid black;
+	padding: 50px;
+}
+
 .day-field-wrapper{
     text-align: center;
-
 }
+
 .events-wrapper{
     text-align: center;
 }
-th, td{
-    padding: 50px;
-}
+
 .days-row{
-    text-align: center;
+    text-align: center;  
 }
+
+.days-row th {
+	color: #5584AC;
+}
+
+
 .today{
-    display:inline-block;
     height: 30px;
     width: 30px;
     line-height: 30px;
-
     -moz-border-radius: 30px; /* or 50% */
     border-radius: 30px; /* or 50% */
-
     background-color: skyblue;
     color: white;
     text-align: center;
     font-size: 1em;
-    margin-left: auto;
+    display: table;
+    margin: 0 auto;
 }
 .event{
     background-color: #ffc107;
+    color:white;
 }
+
+.division .calendarButton {
+	background: #398AB9;
+	border-radius: 10px;
+}
+
+#calheading {
+	color: #1C658C;
+	font-weight:600;
+}
+
