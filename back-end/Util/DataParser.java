@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.*;
 
 public class DataParser {
  public static User getUser(int ID) throws SQLException {
@@ -160,6 +161,37 @@ public class DataParser {
 	        } catch (ClassNotFoundException e) {
 	            e.printStackTrace();
 	        }
+ }
+ 
+ public JsonObject calenderTask(int userId) {
+	 Gson gs = new GsonBuilder().create();	 
+	 String db = "jdbc:mysql://localhost:3306/finalproject";
+	  String user = Constant.DBUserName;
+	  String pwd = Constant.DBUserName;
+	  TodoList todo = new TodoList();
+	        try {
+	            Class.forName("com.mysql.jdbc.Driver");
+	            Connection conn = DriverManager.getConnection(db, user, pwd);
+	            String sql = "SELECT * FROM tasks t, users_has_groups ug WHERE t.tasks_groupID = ug.groups_groupID AND ug.users_userID = "+userId+";";
+	            Statement s = conn.createStatement();
+	            ResultSet rs = s.executeQuery(sql);
+	            while(rs.next()) {
+		            Task ta = new Task();
+		            ta.setId(rs.getInt("taskID"));
+		            ta.setDueDate(rs.getString("taskDueDate"));
+		            ta.setTaskName(rs.getString("taskInfo"));
+		            todo.addTask(ta);
+	            }
+	            conn.close();
+	        } catch (ClassNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	  JsonElement jsonElement = gs.toJsonTree(todo);
+	  JsonObject jsonObject = (JsonObject) jsonElement;     
+	  return jsonObject;
  }
  
  
