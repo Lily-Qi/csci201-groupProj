@@ -58,6 +58,7 @@ public class RegisterDispatcher extends HttpServlet {
         // TODO Auto-generated method stub
         doGet(request, response);
         Connection conn = null;
+        
         String db = "jdbc:mysql://localhost:3306/finalproject";
         String user = Constant.DBUserName;
       	String pwd = Constant.DBPassword;

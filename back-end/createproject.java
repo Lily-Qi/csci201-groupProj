@@ -67,6 +67,7 @@ public class createproject extends HttpServlet {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		System.out.println("okay2");  
 		for(int i=0;i<members.length;i++) {
 			String email=members[i];
 			try (PreparedStatement pst2 = conn.prepareStatement(sql2);) {
@@ -115,7 +116,7 @@ public class createproject extends HttpServlet {
 	    			thesql.execute();
 				    
 				    
-				    
+				System.out.println("okay1");    
 				for(int i=0;i<members.length;i++) {
 					String email=members[i];
 							pst3.setString(1, email);

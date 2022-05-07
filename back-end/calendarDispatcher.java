@@ -13,9 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;  
 import java.util.Calendar;  
 import Util.*;
-@WebServlet("/TodoDispatcher")
+@WebServlet("/calendarDispatcher")
 
-public class TodoDispatcher extends HttpServlet {
+public class calendarDispatcher extends HttpServlet {
 	 @Serial
 	    //private static final long serialVersionUID = 1L;
 	    private static int groupID;
@@ -61,17 +61,7 @@ public class TodoDispatcher extends HttpServlet {
 				} 
 			}
 			groupID=projectid;
-	    }
-
-	    /**
-	     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	     * response)
-	     */
-	    @Override
-	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-	        doGet(request, response);
-	        String db = "jdbc:mysql://localhost:3306/finalproject";
+			String db = "jdbc:mysql://localhost:3306/finalproject";
 	        String user = Constant.DBUserName;
 			String pwd = Constant.DBPassword;
 			String sql = "INSERT INTO tasks (tasks_groupID, taskInfo, taskDueDate) VALUES (?, ?, ?)";
@@ -91,6 +81,17 @@ public class TodoDispatcher extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response.sendRedirect("todoList.jsp?projectid="+groupID);
+			response.sendRedirect("calendar.jsp?projectid="+groupID);
+	    }
+
+	    /**
+	     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	     * response)
+	     */
+	    @Override
+	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+	        doGet(request, response);
+	        
 	    }
 }

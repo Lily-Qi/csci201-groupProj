@@ -21,6 +21,7 @@ public class exitproject extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+    	System.out.println("test wrong");
     	Cookie cookie = null;
     	   Cookie[] cookies = null;
     	   cookies = request.getCookies();
