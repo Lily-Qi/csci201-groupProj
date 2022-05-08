@@ -21,6 +21,9 @@
 	DataParser dp=new DataParser();
 	Project p;
 	Boolean isLogin = false;
+	User theuser=null;
+	String username="";
+	String email="";
 	String groupTitle = "CSCI201";
 	String memberListString = "";
 	String description = "This project will be a web-based group project management system similar to those used in the software industry. Users can create groups and add group members to their projects. They can also use build-in to-do list and calendar to manage a group project.";
@@ -39,6 +42,16 @@
 		   if(cookie.getName().equals("projectid")){
 			    aid=cookie.getValue();
 			    projectid=Integer.valueOf(aid);
+		   }
+		   if(cookie.getName().equals("userid")){
+			    userid=cookie.getValue();
+			    theuser= dp.getUser(Integer.valueOf(userid));
+			    if(theuser!=null){
+			    	email=theuser.getUseremail();
+				    username=theuser.getUsername();
+			   		isLogin=true;
+			    }
+			    
 		   }
 		 
 		} 
@@ -98,12 +111,11 @@
                 if (isLogin) {
                 	out.println("<div class=\"userInfo\"> <table id=\"user\">");
                 	out.println("<tr><th id=\"icon\"><i class=\"fa-solid fa-user\"></i></th></tr>");
-                	out.println("<tr><th id=\"name\">Tommy Trojan</th></tr>");
-                	out.println("<tr><th id = \"email\">trojan@usc.edu</th></tr>");
+                	out.println("<tr><th id=\"name\">"+username+"</th></tr>");
+                	out.println("<tr><th id = \"email\">"+email+"</th></tr>");
                 	out.println("</table></div>");
-                	
                 }
-                %>
+                %> 
                 
             </div>
         </div>
@@ -139,7 +151,7 @@
             		<div class="col"></div>
             		<div class="col"><button id = "editBtn" onclick = "location.href = 'editInfo.jsp'"> Edit </button></div>
             		<div class="col"></div>
-            		<div class="col"><button id = "quitBtn" onclick = "location.href = 'exitproject'"> Quit </button></div>
+            		<div class="col"><button id = "quitBtn" onclick = "location.href = 'exitproject'"> Back to home page </button></div>
             		
             		</div>
             	

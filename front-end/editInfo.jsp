@@ -25,6 +25,9 @@
 	DataParser dp=new DataParser();
 	Project p;
 	Boolean isLogin = false;
+	User theuser=null;
+	String username="";
+	String email="";
 	String groupTitle = "";
 	String memberListString = "";
 	String description = "";
@@ -44,6 +47,16 @@
 			    groupTitle=cookie.getValue();
 			    aid=groupTitle;
 			    projectid=Integer.valueOf(aid);
+		   }
+		   if(cookie.getName().equals("userid")){
+			    userid=cookie.getValue();
+			    theuser= dp.getUser(Integer.valueOf(userid));
+			    if(theuser!=null){
+			    	email=theuser.getUseremail();
+				    username=theuser.getUsername();
+			   		isLogin=true;
+			    }
+			    
 		   }
 		 
 		} 
@@ -74,7 +87,10 @@ function removeInput(btn){
 </script>             
 </head>
 <body>
-	
+	<% String er = (String) request.getAttribute("error");
+	if (er != null) { %>
+		<h1 style="background-color:pink;padding: 40px 0;margin-bottom:0;text-align: center;font-size:14px;"><%out.println(er); %></h1>
+	<% }%>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> -->
 	
@@ -111,14 +127,12 @@ function removeInput(btn){
                 <%
                 if (isLogin) {
                 	out.println("<div class=\"userInfo\"> <table id=\"user\">");
-                	
                 	out.println("<tr><th id=\"icon\"><i class=\"fa-solid fa-user\"></i></th></tr>");
-                	out.println("<tr><th id=\"name\">Tommy Trojan</th></tr>");
-                	out.println("<tr><th id = \"email\">trojan@usc.edu</th></tr>");
+                	out.println("<tr><th id=\"name\">"+username+"</th></tr>");
+                	out.println("<tr><th id = \"email\">"+email+"</th></tr>");
                 	out.println("</table></div>");
-                	
                 }
-                %>
+                %>   
                 
             </div>
         </div>
@@ -133,7 +147,7 @@ function removeInput(btn){
             	<div class="container infoPart">
             		<div class="row">
             			<div class="col-2"><label class = "info">Title</label></div>
-    					<div class="col-7"><input class = "groupInput" type="text" name="groupTitle" value = <%=groupTitle %>></div>
+    					<div class="col-7"><input class = "groupInput" type="text" name="groupTitle" value = "<%=groupTitle%>" required></div>
    		 				<div class="col"></div>
             		</div>
             		<div class="row">
@@ -151,7 +165,7 @@ function removeInput(btn){
             		</div>
             		<div class="row">
             			<div class="col-2"><label class = "info">Description</label></div>
-    					<div class="col-7"><textarea name="groupDescription" rows="10" cols="30" id="userText"><%=description %></textarea></div>
+    					<div class="col-7"><textarea name="groupDescription" rows="10" cols="30" id="userText" required><%=description %></textarea></div>
    		 				<div class="col"></div>
             		</div>
             	</div>
@@ -160,7 +174,7 @@ function removeInput(btn){
             		<div class="col"></div>
             		<div class="col"><button id = "editBtn" type = "submit"> Save </button></div>
             		<div class="col"></div>
-            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'deleteproject'"> Delete this group </button></div>
+            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'deleteproject'"> Quit this group </button></div>
             		
             		</div>
             	

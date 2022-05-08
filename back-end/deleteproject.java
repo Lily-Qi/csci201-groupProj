@@ -27,12 +27,12 @@ public class deleteproject extends HttpServlet {
     	response.setContentType("text/html");
     	String aid;
     	int projectid=1;
+    	int userid=1;
         
     	Cookie cookie = null;
     	Cookie[] cookies = null;
     	cookies = request.getCookies();
     	int cookieexist=0;
-    	String userid="";
     	if (cookies != null) {
     	for (int i = 0; i < cookies.length; i++) {
     		   cookie = cookies[i];
@@ -41,6 +41,10 @@ public class deleteproject extends HttpServlet {
     			    aid=cookie.getValue();
     			    projectid=Integer.valueOf(aid);
     		   }
+    		   if(cookie.getName().equals("userid")){
+   			    aid=cookie.getValue();
+   			    userid=Integer.valueOf(aid);
+   		   }
     		 
     		} 
     	}
@@ -48,8 +52,8 @@ public class deleteproject extends HttpServlet {
         String db = Constant.url;
         String user = Constant.DBUserName;
 		String pwd = Constant.DBPassword;
-		String sql = "DELETE FROM projects where groupID=?";
-		String sql2 = "DELETE FROM users_has_groups where groups_groupID = ?";
+		//String sql = "DELETE FROM Projects where groupID=?";
+		String sql2 = "DELETE FROM users_has_groups where groups_groupID = ? AND users_userID=?";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e2) {
@@ -60,11 +64,11 @@ public class deleteproject extends HttpServlet {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		try (PreparedStatement pst = conn.prepareStatement(sql);PreparedStatement pst2 = conn.prepareStatement(sql2);) {
+		try (PreparedStatement pst2 = conn.prepareStatement(sql2);) {
 			pst2.setInt(1, projectid);
+			pst2.setInt(2, userid);
 			pst2.execute();
-			pst.setInt(1, projectid);
-			pst.execute();
+			//System.out.println("quit the group "+projectid+" "+userid);
 				}catch (SQLException ex){
 					System.out.println ("SQLException: " + ex.getMessage());
 					}

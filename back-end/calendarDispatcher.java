@@ -34,7 +34,56 @@ public class calendarDispatcher extends HttpServlet {
 	    @Override
 	    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
+	    	response.setContentType("text/html");
+			//PrintWriter out = response.getWriter();
+			taskName = request.getParameter("taskName");
+			DueDate = request.getParameter("taskDueDate");
 			String aid;
+			int projectid=1;
+			Cookie cookie = null;
+			Cookie[] cookies = null;
+			cookies = request.getCookies();
+			if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				   cookie = cookies[i];	   
+				   if(cookie.getName().equals("projectid")){
+					    aid=cookie.getValue();
+					    projectid=Integer.valueOf(aid);
+				   }
+				 
+				} 
+			}
+	        String db = Constant.url;
+	        String user = Constant.DBUserName;
+			String pwd = Constant.DBPassword;
+			String sql = "INSERT INTO tasks (tasks_groupID, taskInfo, taskDueDate) VALUES (?, ?, ?)";
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection conn = DriverManager.getConnection(db, user, pwd);
+	            PreparedStatement s = conn.prepareStatement(sql);
+	            s.setInt(1, projectid);
+	            s.setString(2, taskName);
+	            s.setString(3, DueDate);
+	            System.out.println(123);
+	            s.execute();
+	            conn.close();
+			} catch (ClassNotFoundException e2) {
+				e2.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			response.sendRedirect("calendar.jsp?projectid="+groupID);
+	    }
+
+	    /**
+	     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	     * response)
+	     */
+	    @Override
+	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+	    	String aid;
 			int projectid=1;
 			Cookie cookie = null;
 			Cookie[] cookies = null;
@@ -65,54 +114,6 @@ public class calendarDispatcher extends HttpServlet {
 		            out.close();  
 		        } 
 		    }
-	    }
-
-	    /**
-	     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	     * response)
-	     */
-	    @Override
-	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-	    	response.setContentType("text/html");
-			//PrintWriter out = response.getWriter();
-			taskName = request.getParameter("taskName");
-			DueDate = request.getParameter("taskDueDate");
-			String aid;
-			int projectid=1;
-			Cookie cookie = null;
-			Cookie[] cookies = null;
-			cookies = request.getCookies();
-			if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				   cookie = cookies[i];	   
-				   if(cookie.getName().equals("projectid")){
-					    aid=cookie.getValue();
-					    projectid=Integer.valueOf(aid);
-				   }
-				 
-				} 
-			}
-	        String db = Constant.url;
-	        String user = Constant.DBUserName;
-			String pwd = Constant.DBPassword;
-			String sql = "INSERT INTO tasks (tasks_groupID, taskInfo, taskDueDate) VALUES (?, ?, ?)";
-			try {
-				Class.forName("com.mysql.jdbc.Driver");
-				Connection conn = DriverManager.getConnection(db, user, pwd);
-	            PreparedStatement s = conn.prepareStatement(sql);
-	            s.setInt(1, groupID);
-	            s.setString(2, taskName);
-	            s.setString(3, DueDate);
-	            s.execute();
-	            conn.close();
-			} catch (ClassNotFoundException e2) {
-				e2.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			response.sendRedirect("calendar.jsp?projectid="+groupID);
 			
 	    }
 }
