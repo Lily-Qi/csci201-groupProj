@@ -73,14 +73,12 @@
 	}
 %>
 <script>
-
 function add(){
 	var newdiv = document.createElement('div');
 	newdiv.id = "emailInput"
     newdiv.innerHTML = "<input class = 'memberInput' type='text' name='memberEmail'><input type='button' id = 'minusBtn' value='-' onClick='removeInput(this);'>";
     document.getElementById('addMember').appendChild(newdiv);
     }
-
 function removeInput(btn){
     btn.parentNode.remove();
 }
@@ -174,7 +172,7 @@ function removeInput(btn){
             		<div class="col"></div>
             		<div class="col"><button id = "editBtn" type = "submit"> Save </button></div>
             		<div class="col"></div>
-            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'deleteproject'"> Delete this group </button></div>
+            		<div class="col"><button id = "quitBtn" type = "button" onclick = "location.href = 'deleteproject'"> Quit this group </button></div>
             		
             		</div>
             	

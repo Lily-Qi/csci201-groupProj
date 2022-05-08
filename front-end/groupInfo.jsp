@@ -151,7 +151,7 @@
             		<div class="col"></div>
             		<div class="col"><button id = "editBtn" onclick = "location.href = 'editInfo.jsp'"> Edit </button></div>
             		<div class="col"></div>
-            		<div class="col"><button id = "quitBtn" onclick = "location.href = 'deleteproject'"> Quit </button></div>
+            		<div class="col"><button id = "quitBtn" onclick = "location.href = 'exitproject'"> Back to home page </button></div>
             		
             		</div>
             	
