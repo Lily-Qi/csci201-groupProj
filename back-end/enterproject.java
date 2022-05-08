@@ -1,4 +1,3 @@
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -26,6 +25,19 @@ public class enterproject extends HttpServlet {
             throws ServletException, IOException {
     	response.setContentType("text/html");
 		//PrintWriter out = response.getWriter();
+       Cookie cookie = null;
+ 	   Cookie[] cookies = null;
+ 	   cookies = request.getCookies();
+ 	   if( cookies != null ){
+ 	      for (int i = 0; i < cookies.length; i++){
+ 	         cookie = cookies[i];
+ 	         if((cookie.getName( )).compareTo("projectid") == 0 ){
+ 	            cookie.setMaxAge(0);
+ 	            response.addCookie(cookie);
+ 	         }
+ 	         
+ 	      }
+ 	   }
 		projectid= request.getParameter("projectid");
 		Cookie ck=new Cookie("projectid",projectid); 
 	    response.addCookie(ck);
