@@ -8,11 +8,15 @@ import java.util.ArrayList;
 import java.io.*;  
 import javax.servlet.*;  
 import javax.servlet.http.*;
+
+import com.google.gson.*;
+
 import java.text.DateFormat;  
 import java.text.SimpleDateFormat;  
 import java.util.Date;  
 import java.util.Calendar;  
 import Util.*;
+
 @WebServlet("/calendarDispatcher")
 
 public class calendarDispatcher extends HttpServlet {
@@ -30,26 +34,11 @@ public class calendarDispatcher extends HttpServlet {
 	    @Override
 	    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
-	    	response.setContentType("text/html");
-			//PrintWriter out = response.getWriter();
-			taskName = request.getParameter("taskName");
-			DueDate = request.getParameter("taskDueDate");
-			System.out.println(taskName);
-			System.out.println("467");
-			System.out.println(DueDate);
-			DataParser dp=new DataParser();
-			Project p;
-			Boolean isLogin = false;
-			User theuser=null;
-			String username="";
-			String email="";
 			String aid;
 			int projectid=1;
 			Cookie cookie = null;
 			Cookie[] cookies = null;
 			cookies = request.getCookies();
-			int cookieexist=0;
-			String userid="";
 			if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
 				   cookie = cookies[i];	   
@@ -61,6 +50,21 @@ public class calendarDispatcher extends HttpServlet {
 				} 
 			}
 			groupID=projectid;
+			String calendar = DataParser.calendarTask(groupID);
+			response.setCharacterEncoding("UTF-8");  
+			response.setContentType("application/json; charset=utf-8");  
+		    PrintWriter out = null;  
+		    try {  
+		        out = response.getWriter();  
+		        out.append(calendar);  
+		        //System.out.println(calendar.toString());
+		    } catch (IOException e) {  
+		        e.printStackTrace();  
+		    } finally {  
+		        if (out != null) {  
+		            out.close();  
+		        } 
+		    }
 	    }
 
 	    /**
@@ -70,7 +74,25 @@ public class calendarDispatcher extends HttpServlet {
 	    @Override
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
-	        doGet(request, response);
+	    	response.setContentType("text/html");
+			//PrintWriter out = response.getWriter();
+			taskName = request.getParameter("taskName");
+			DueDate = request.getParameter("taskDueDate");
+			String aid;
+			int projectid=1;
+			Cookie cookie = null;
+			Cookie[] cookies = null;
+			cookies = request.getCookies();
+			if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				   cookie = cookies[i];	   
+				   if(cookie.getName().equals("projectid")){
+					    aid=cookie.getValue();
+					    projectid=Integer.valueOf(aid);
+				   }
+				 
+				} 
+			}
 	        String db = Constant.url;
 	        String user = Constant.DBUserName;
 			String pwd = Constant.DBPassword;
@@ -82,7 +104,6 @@ public class calendarDispatcher extends HttpServlet {
 	            s.setInt(1, groupID);
 	            s.setString(2, taskName);
 	            s.setString(3, DueDate);
-	            System.out.println(s);
 	            s.execute();
 	            conn.close();
 			} catch (ClassNotFoundException e2) {

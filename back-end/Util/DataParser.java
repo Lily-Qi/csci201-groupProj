@@ -163,7 +163,7 @@ public class DataParser {
 	        }
  }
  
- public JsonObject calenderTask(int groupId) {
+ public static String calendarTask(int groupId) {
 	 Gson gs = new GsonBuilder().create();	 
 	 String db = Constant.url;
 	  String user = Constant.DBUserName;
@@ -173,6 +173,7 @@ public class DataParser {
 	            Class.forName("com.mysql.jdbc.Driver");
 	            Connection conn = DriverManager.getConnection(db, user, pwd);
 	            String sql = "SELECT * FROM tasks t WHERE t.tasks_groupID = "+groupId+";";
+	            //String sql = "SELECT * FROM tasks t WHERE t.tasks_groupID = 8;";
 	            Statement s = conn.createStatement();
 	            ResultSet rs = s.executeQuery(sql);
 	            while(rs.next()) {
@@ -189,9 +190,8 @@ public class DataParser {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	  JsonElement jsonElement = gs.toJsonTree(todo);
-	  JsonObject jsonObject = (JsonObject) jsonElement;     
-	  return jsonObject;
+	 String js = gs.toJson(todo);
+	 return js;
  }
  
  
