@@ -61,7 +61,7 @@ public class calendarDispatcher extends HttpServlet {
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection conn = DriverManager.getConnection(db, user, pwd);
                 PreparedStatement s = conn.prepareStatement(sql);
-                s.setInt(1, groupID);
+                s.setInt(1, projectid);
                 s.setString(2, taskName);
                 s.setString(3, DueDate);
                 s.execute();

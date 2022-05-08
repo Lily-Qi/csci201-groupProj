@@ -6,25 +6,44 @@ var num_of_days;
 var NCmonth;
 var NCyear;
 
-
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function parseJSON(){
-	var jsonstr = document.getElementById('taskjson').innerHTML;
-	var resultsJSON = jQuery.parseJSON(jsonstr);
-	var toDo = resultsJSON.TodoList;
-	var tasksMap = new Map();
-	for(var i = 0; i < toDo.length; i++){
-		var taskTitle = toDo[i].TaskName;
-		var taskDue = toDo[i].TaskDueDate;
-		tasksMap.set(taskTitle, taskDue);
-	}
-	//go through and add tasks
-	for(let [key, value] of tasksMap){
-		addPastTask(key, value);
+	var cook = getCookie("userid");
+	if(cook == ""){
+		return;
+	}else{
+		var jsonstr = document.getElementById('taskjson').innerHTML;
+		var resultsJSON = jQuery.parseJSON(jsonstr);
+		var toDo = resultsJSON.TodoList;
+		var tasksMap = new Map();
+		for(var i = 0; i < toDo.length; i++){
+			var taskTitle = toDo[i].TaskName;
+			var taskDue = toDo[i].TaskDueDate;
+			tasksMap.set(taskTitle, taskDue);
+		}
+		//go through and add tasks
+		for(let [key, value] of tasksMap){
+			addPastTask(key, value);
+		}
 	}
 }
 
@@ -198,6 +217,7 @@ $("#chevright").click(function () {
     document.getElementById('calheading').innerHTML = months[curr_month] + ' ' + curr_year;
     $('#table_body').remove();
     reloadCal();
+    parseJSON();
 });
 
 //chevron left
@@ -211,15 +231,22 @@ $("#chevleft").click(function () {
     document.getElementById('calheading').innerHTML = months[curr_month] + ' ' + curr_year;
     $('#table_body').remove();
     reloadCal();
+    parseJSON();
 });
 
 var taskModal = document.getElementById('Modalform');
 $('#addTask').click(function (){
-    var modalBodyInput1 = taskModal.querySelector('.modal-body #task-title');
-    var modalBodyInput2 = taskModal.querySelector('.modal-body #task-date');
-    var task = modalBodyInput1.value;
-    var datee = modalBodyInput2.value;
-    addTask(task, datee);
+	var cook = getCookie("userid");
+	if(cook != ""){
+		var modalBodyInput1 = taskModal.querySelector('.modal-body #task-title');
+		var modalBodyInput2 = taskModal.querySelector('.modal-body #task-date');
+		var task = modalBodyInput1.value;
+		var datee = modalBodyInput2.value;
+		addTask(task, datee);	
+	}
+	else{
+		location.href = 'auth.jsp';
+	}
 })
 
 window.onload = origin;
