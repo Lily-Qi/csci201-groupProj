@@ -163,7 +163,7 @@ public class DataParser {
 	        }
  }
  
- public JsonObject calenderTask(int groupId) {
+ public static JsonObject calenderTask(int groupId) {
 	 Gson gs = new GsonBuilder().create();	 
 	 String db = Constant.url;
 	  String user = Constant.DBUserName;

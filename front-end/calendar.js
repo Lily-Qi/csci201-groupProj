@@ -12,24 +12,19 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function retrieveData(id){
-	$.ajax({
-        url: "calendarDispatcher?user="+id, //put servlet right here
-        type:"GET",
-        success: function(returnValue) {
-            console.log(returnValue);
-            //parseJSON(returnValue);
-        }      
-    })
-}
-
-function parseJSON(x){
-	let resultsJS = x; //get JSON object
-	for(let i = 0; i < resultsJS.length; i++){
-		let task = resultsJS[i];
-		let taskName = task.taskName;
-		let taskDate = task.taskDate;
-		addPastTask(taskName, taskDate);
+function parseJSON(){
+	var jsonstr = document.getElementById('taskjson').innerHTML;
+	var resultsJSON = jQuery.parseJSON(jsonstr);
+	var toDo = resultsJSON.TodoList;
+	var tasksMap = new Map();
+	for(var i = 0; i < toDo.length; i++){
+		var taskTitle = toDo[i].TaskName;
+		var taskDue = toDo[i].TaskDueDate;
+		tasksMap.set(taskTitle, taskDue);
+	}
+	//go through and add tasks
+	for(let [key, value] of tasksMap){
+		addPastTask(key, value);
 	}
 }
 
@@ -42,8 +37,8 @@ function origin(){
     NCyear = date.getFullYear();
     curr_day = date.getDate();
     num_of_days = getNumOfDays();
-    retrieveData(467);
     reloadCal();
+    parseJSON();
 }
 
 function getNumOfDays() {

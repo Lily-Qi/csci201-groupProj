@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="javax.script.*" %>
 <%@ page import = "java.util.*" %>
+<%@ page import="com.google.gson.*" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,47 +38,49 @@
 <%@ page import="Util.Task"%>
 
 <%
-	DataParser dp=new DataParser();
-	Project p;
-	Boolean isLogin = false;
-	User theuser=null;
-	String username="";
-	String email="";
-	String aid;
-	int projectid=1;
+	
+
+    DataParser dp=new DataParser();
+    Project p;
+    Boolean isLogin = false;
+    User theuser=null;
+    String username="";
+    String email="";
+    String aid;
+    int projectid=1;
     
-	Cookie cookie = null;
-	Cookie[] cookies = null;
-	cookies = request.getCookies();
-	int cookieexist=0;
-	String userid="";
-	if (cookies != null) {
-	for (int i = 0; i < cookies.length; i++) {
-		   cookie = cookies[i];
-		   
-		   if(cookie.getName().equals("projectid")){
-			    aid=cookie.getValue();
-			    projectid=Integer.valueOf(aid);
-		   }
-		   if(cookie.getName().equals("userid")){
-			    userid=cookie.getValue();
-			    theuser= dp.getUser(Integer.valueOf(userid));
-			    if(theuser!=null){
-			    	email=theuser.getUseremail();
-				    username=theuser.getUsername();
-			   		isLogin=true;
-			    }
-			    
-		   }
-		 
-		} 
-	}
-	p=dp.getProject(projectid);
-	System.out.println(p);
-	
-	TodoList taskList = new TodoList();
-	taskList = dp.getTodo(projectid);
-	
+    Cookie cookie = null;
+    Cookie[] cookies = null;
+    cookies = request.getCookies();
+    int cookieexist=0;
+    String userid="";
+    if (cookies != null) {
+    for (int i = 0; i < cookies.length; i++) {
+           cookie = cookies[i];
+           
+           if(cookie.getName().equals("projectid")){
+                aid=cookie.getValue();
+                projectid=Integer.valueOf(aid);
+           }
+           if(cookie.getName().equals("userid")){
+                userid=cookie.getValue();
+                theuser= dp.getUser(Integer.valueOf(userid));
+                if(theuser!=null){
+                    email=theuser.getUseremail();
+                    username=theuser.getUsername();
+                       isLogin=true;
+                }
+                
+           }
+         
+        } 
+    }
+
+    p=dp.getProject(projectid);
+    JsonObject calendar = DataParser.calenderTask(projectid);
+    String tasks = calendar.toString();
+    System.out.println(tasks);
+    
 %>
 
   </head>
@@ -138,11 +141,11 @@
             <hr />
             <%
                 if (isLogin) {
-                	out.println("<div class=\"userInfo\"> <table id=\"user\">");
-                	out.println("<tr><th id=\"icon\"><i class=\"fa-solid fa-user\"></i></th></tr>");
-                	out.println("<tr><th id=\"name\">"+username+"</th></tr>");
-                	out.println("<tr><th id = \"email\">"+email+"</th></tr>");
-                	out.println("</table></div>");
+                    out.println("<div class=\"userInfo\"> <table id=\"user\">");
+                    out.println("<tr><th id=\"icon\"><i class=\"fa-solid fa-user\"></i></th></tr>");
+                    out.println("<tr><th id=\"name\">"+username+"</th></tr>");
+                    out.println("<tr><th id = \"email\">"+email+"</th></tr>");
+                    out.println("</table></div>");
                 }
                 %>   
           </div>
@@ -214,13 +217,16 @@
         <!-- content end -->
     </div>
     </div>
-
+     <%
+     if (isLogin) {
+         out.println("<div id=\"taskjson\" class=\"d-none\">" + tasks + "</div>");
+     }
+     %>   
     <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"
     ></script>
     <script src="calendar.js"></script>
-    <script type="text/javascript">retrieveData('<%=p%>')</script>
   </body>
 </html>
